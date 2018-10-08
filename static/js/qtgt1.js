@@ -18,12 +18,6 @@ function formatTien(t) {
 
 var app = new Vue({
     el: '#qtgt',
-    filters: {
-        currency(t) {
-            if (t==0)
-                return '-';
-        return new Intl.NumberFormat('vi-VI',{useGrouping:true,minimumIntegerDigits:1}).format(t);}
-        },
     methods:{
         onKeyUp:function(){
             if (event) {
@@ -42,44 +36,43 @@ var app = new Vue({
     },
     computed:{
         /* phần ống ngánh */
-        onVl: function() {
-            let total = 0;
-            this.dataqt33.forEach(function(s) {
+        ongNganh: function() {
+            var data3x = this.dataqt33.concat(this.dataqt34);
+            var vl=0;
+            var nc=0;
+            var mtc=0;
+            this.dataqt3x.forEach(function(s) {
                 s.trigiavl = lamTronSo(s.soluong * s.giavl, 0);
-                total += parseInt(s.trigiavl);
-            });
-            this.dataqt34.forEach(function(s) {
-                s.trigiavl = lamTronSo(s.soluong * s.giavl, 0);
-                total += parseInt(s.trigiavl);
-            });
-        return total
-        },
-        onNc0: function() {
-            let total = 0;
-            this.dataqt33.forEach(function(s) {
                 s.trigianc = lamTronSo(s.soluong * s.gianc, 0);
-                total += parseInt(s.trigianc);
+                s.trigiamtc = lamTronSo(s.soluong * s.giamtc, 0);
+                vl += parseInt(s.trigiavl);
+                nc += parseInt(s.trigianc);
+                mtc += parseInt(s.trigiamtc);
+                s.trigiavl=formatTien(s.trigiavl);
             });
-            this.dataqt34.forEach(function(s) {
-                s.trigianc = lamTronSo(s.soluong * s.gianc, 0);
-                total += parseInt(s.trigianc);
-            });
-        return total
         },
-        onMtc0: function() {
-            let total = 0;
-            this.dataqt33.forEach(function(s) {
-                s.trigiamtc = lamTronSo(s.soluong * s.giamtc, 0);
-                total += parseInt(s.trigiamtc);
-            });
-            this.dataqt34.forEach(function(s) {
-                s.trigiamtc = lamTronSo(s.soluong * s.giamtc, 0);
-                total += parseInt(s.trigiamtc);
-            });
-        return total
-        }
         
-        
+        pnaNhap: function() {return this.onGxd1},
+        onNc: function() {return lamTronSo(this.onTongNc * this.hesoNc,0);},
+        onMtc: function() {return lamTronSo(this.onTongMtc * this.hesoMtc,0);},
+        onA: function() {return this.onVl + this.onNc + this.onMtc;},
+        onTt: function() {return lamTronSo(this.onA * this.hesoTtpk,0);},
+        onT: function() {return this.onA + this.onTt;},
+        onC: function() {return lamTronSo(this.onT * this.hesoCpchung,0);},
+        onZ: function() {return this.onT + this.onC;},
+        onTl: function() {return lamTronSo(this.onZ * this.hesoThunhaptt,0);},
+        onG: function() {return this.onZ + this.onTl;},
+        onI: function() {return lamTronSo(this.onG * this.hesoKhaosat * this.hesoThietke,0);},
+        onJ: function() {return lamTronSo(this.onG * this.hesoGstc,0);},
+        onLa: function() {return this.onG + this.onI + this.onJ;},
+        onVat1: function() {return lamTronSo(this.onLa * 0.1,0);},
+        onGxd1: function() {return this.onLa + this.onVat1;},
+        onLb: function() {return lamTronSo(this.onGxd2*100/110,0);},
+        onVat2: function() {return this.onGxd2 - this.onLb;},
+        /* phần tổng kết */
+        tcA: function() {return this.ocGxd1 + this.onGxd1;},
+        tcB: function() {return this.ocGxd2 + this.onGxd2;},
+        Gxd: function() {return this.tcA + this.tcB;}
     },
     data() {return{
         loichao:'hello',ocGxd1:0,ocGxd2:0,onGxd2:100,
