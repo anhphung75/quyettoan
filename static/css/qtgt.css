@@ -1,0 +1,55 @@
+/* cài đặt chung */
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+@font-face {
+	font-family: "font_dulieu";
+	src: url("../static/font/OpenSansCondensed-Light.ttf") format("True Type");
+	font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+	font-family: "font_tieude";
+	src: url("../static/font/OpenSansCondensed-Light.ttf") format("True Type");
+	font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+	font-family: "font_tieudedb";
+	src: url("../static/font/OpenSansCondensed-Bold.ttf") format("True Type");
+	font-weight: 700;
+    font-style: normal;
+}
+body {
+font-family: font-dulieu, font-tieude, font-tieudedb;
+font-size:10;
+margin: 0;
+padding: 0;
+border-collapse: collapse;
+border-spacing:0;
+}
+.row{
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items:center;
+	height: 100%;
+	width:100%;
+}
+.col-stt{flex:0 1 4.59%;}
+.col-mota{flex:0 1 29.63%;}
+.col-dvt{flex:0 1 auto;}
+.col-soluong{flex:0 1 9.55%;}
+.col-gia{flex:0 1 6.61%;}
+.col-tien{flex:0 1 11.57%;}
+
+qt33> row:nth-child(odd) >* {background-color: white;}
+qt33> row:nth-child(even) >* {background-color: light yelow;}
+
+
+.vl{color: red;}
+.nc {color: blue;}
+.mtc {color: magenta;}

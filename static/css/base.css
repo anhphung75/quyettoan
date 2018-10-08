@@ -1,0 +1,23 @@
+html, body {
+  margin: 0px;
+  padding: 0px;
+  font-family: "Arial";
+  font-size: 14;
+  line-height: normal;
+}
+/* base layout */
+#trangchu{
+  display:flex;
+  flex-flow: row wrap;
+  min-width: 800px;
+  font-size: 2em;
+}
+#trangchu>header,nav,main,footer{
+  border-radius: 7px;
+  margin: 5px;
+  padding: 10px;
+}
+#trangchu>header{order: 1;height: 100px;flex:0 1 100%;background-color: #CCC;}
+#trangchu>nav{order: 2;flex: 0 1 200px;background-color: #ff6f69;}
+#trangchu>main{order: 3;min-height: 400px;flex:1;background-color: #88d8b0;}
+#trangchu>footer{order: 4;height: 100px;flex:0 1 100%;background-color: #ffcc5c;}

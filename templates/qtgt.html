@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Phòng kế hoạch</title>
+    <!-- Required Stylesheets
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/qtgt.css">
+</head>
+
+<body>
+    <div id="qtgt">
+    <section class="quyettoan-ongnganh">
+        <div class="row qtgt-on">
+        	<div class="col-dvt"><h6>Ống ngánh </h6></div>
+        	<div class="col-dvt"><h6>pna= {{pnaNhap}}</h6></div>
+        	<div class="col-tien tien vl">vl= {{onVl}}</div>
+        	<div class="col-tien tien nc">nc= {{onTongNc}}</div>
+        	<div class="col-tien tien mtc">mtc= {{onTongMtc}}</div>
+        </div>
+        <div class="qtgt-chitiet-ongnganh">
+	        <div class="row tieudeQt33">
+	        	<div class="col-stt"><b>Stt</b></div>
+	            <div class="col-mota"><b>Mô tả công tác (ống ngánh)</b></div>
+	            <div class="col-dvt"><b>Đvt</b></div>
+	            <div class="col-soluong"><b>Số lượng</b></div>
+	            <div class="col-gia gia vl"><b>Giá vl</b></div>
+	            <div class="col-gia gia nc"><b>Giá nc</b></div>
+	            <div class="col-gia gia mtc"><b>Giá mtc</b></div>
+	            <div class="col-tien tien vl"><b>Trị giá vl</b></div>
+	            <div class="col-tien tien nc"><b>Trị giá nc</b></div>
+	            <div class="col-tien tien mtc"><b>Trị giá mtc</b></div>
+	        </div>
+	        <div class="row qt33" v-for="(item, index) in dataqt33">
+	            <div class="col-stt">{{item.stt}}</div>
+	            <div class="col-mota">{{item.diengiai}}</div>
+	            <div class="col-dvt">{{item.dvt}}</div>
+	            <div class="col-soluong">
+	            	<input v-model.number="item.soluong"
+						@keyup="onKeyUp"
+	            	>
+	            </div>
+	            <div class="col-gia gia vl">{{item.giavl}}</div>
+	            <div class="col-gia gia nc">{{item.gianc}}</div>
+	            <div class="col-gia gia mtc">{{item.giamtc}}</div>
+	            <div class="col-tien tien vl">{{item.trigiavl }}</div>
+	            <div class="col-tien tien nc">{{item.trigianc}}</div>
+	            <div class="col-tien tien mtc">{{item.trigiamtc}}</div>
+	            <!-- phần dữ liệu ẩn -->
+	            <div class="col-hiden" v-show=0>{{index}}</div>
+	            <div class="col-hiden" v-show=0>{{item.chiphiid}}</div>
+	        </div>
+	    </br>
+	    </br>
+	        <div class="row tieudeQt34">
+	        	<div class="col-stt"><b>Stt</b></div>
+	            <div class="col-mota"><b>Mô tả công tác (ống ngánh)</b></div>
+	            <div class="col-dvt"><b>Đvt</b></div>
+	            <div class="col-soluong"><b>Số lượng</b></div>
+	            <div class="col-gia gia vl"><b>Giá vl</b></div>
+	            <div class="col-gia gia nc"><b>Giá nc</b></div>
+	            <div class="col-gia gia mtc"><b>Giá mtc</b></div>
+	            <div class="col-tien tien vl"><b>Trị giá vl</b></div>
+	            <div class="col-tien tien nc"><b>Trị giá nc</b></div>
+	            <div class="col-tien tien mtc"><b>Trị giá mtc</b></div>
+	        </div>
+	        <div class="row qt34" v-for="(item, index) in dataqt34">
+	            <div class="col-stt">{{item.stt}}</div>
+	            <div class="col-mota">{{item.diengiai}}</div>
+	            <div class="col-dvt">{{item.dvt}}</div>
+	            <div class="col-soluong">
+	            	<input v-model.number="item.soluong"
+						@keyup="onKeyUp"
+	            	>
+	            </div>
+	            <div class="col-gia gia vl">{{item.giavl}}</div>
+	            <div class="col-gia gia nc">{{item.gianc}}</div>
+	            <div class="col-gia gia mtc">{{item.giamtc}}</div>
+	            <div class="col-tien tien vl">{{item.trigiavl}}</div>
+	            <div class="col-tien tien nc">{{item.trigianc}}</div>
+	            <div class="col-tien tien mtc">{{item.trigiamtc}}</div>
+	            <!-- phần dữ liệu ẩn -->
+	            <div class="col-hiden" v-show=0>{{index}}</div>
+	            <div class="col-hiden" v-show=0>{{item.chiphiid}}</div>
+	        </div>
+	        
+		</div>
+    </section>
+<!--
+    <section class="tai-lap-mat-duong">
+    	<div class="row tieudeQt35">
+        	<div class="col-stt"><b>Stt</b></div>
+            <div class="col-mota"><b>Mô tả công tác (TLMD)</b></div>
+            <div class="col-dvt"><b>Đvt</b></div>
+            <div class="col-sl1"><b>SL Ong cai/b></div>
+            <div class="col-sl2"><b>SL Ong nganh/b></div>
+            <div class="col-gia gia"><b>Don giá</b></div>
+            <div class="col-tien tien"><b>Trị giá OC</b></div>
+            <div class="col-tien tien"><b>Trị giá ON</b></div>
+        </div>
+        <div class="row qt35 qt35-noidung" v-for="(item, index) in dataqt35">
+            <div class="col-stt">{{item.stt}}</div>
+            <div class="col-mota">{{item.diengiai}}</div>
+            <div class="col-dvt">{{item.dvt}}</div>
+            <div class="col-sl1">
+            	<input v-model.number="item.sl1"
+					@keyup="onKeyUp"
+            	>
+            </div>
+            <div class="col-sl2">
+            	<input v-model.number="item.sl2"
+					@keyup="onKeyUp"
+            	>
+            </div>
+            <div class="col-gia gia">{{item.dongia}}</div>
+            <div class="col-tien tien nc">{{item.trigia1}}</div>
+            <div class="col-tien tien mtc">{{item.trigia2}}</div>
+            !-- phần dữ liệu ẩn --
+            <div class="col-hiden" v-show=0>{{index}}</div>
+            <div class="col-hiden" v-show=0>{{item.chiphiid}}</div>
+        </div>
+        
+    </section>
+</br>
+</br>
+	<section class="phan-tong-ket">
+		<div class="row tieude phantongket">
+        	<div class="col-dvt"><b>Stt</b></div>
+            <div class="col-dvt"><b>Mô tả công tác (TLMD)</b></div>
+            <div class="col-dvt"><b>Đvt</b></div>
+            <div class="col-dvt"><b>SL Ong cai</b></div>
+            <div class="col-dvt"><b>SL Ong nganh/b></div>
+            <div class="col-dvt gia"><b>Don giá</b></div>
+            <div class="col-dvt tien"><b>Trị giá OC</b></div>
+            <div class="col-dvt tien"><b>Trị giá ON</b></div>
+        </div>
+        <div class="row noidung phantongket">
+            <div class="col-dvt">Gxd1</div>
+            <div class="col-dvt">Gxd2</div>
+            <div class="col-dvt">Gxd</div>
+            !-- phần dữ liệu ẩn --
+            <div class="col-hiden" v-show=0>a</div>
+            <div class="col-hiden" v-show=0>b</div>
+        </div>
+-->
+	</section>
+    </div>
+    <!-- script block -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="../static/js/qtgt.js"></script>
+</body>
+
+</html>
