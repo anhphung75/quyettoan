@@ -14,79 +14,82 @@
 
 <body>
     <div id="qtgt">
-    <section class="quyettoan-ongnganh">
-        <div class="row qtgt-on">
-        	<div class="col-dvt"><h6>Ống ngánh </h6></div>
-        	<div class="col-tien tien vl">vl= {{onVl}}</div>
-        	<div class="col-tien tien nc">nc= {{onNc0}}</div>
-        	<div class="col-tien tien mtc">mtc= {{onMtc0}}</div>
+    <section id="ongnganh">
+        <div class="row on-tieude">
+        	<div class="col"><h6>Ống ngánh </h6></div>
+        	<div class="col7">vl= {{onVl}}</div>
+        	<div class="col8">nc= {{onNc0}}</div>
+        	<div class="col9">mtc= {{onMtc0}}</div>
         </div>
-        <div class="qtgt-chitiet-ongnganh">
-	        <div class="row tieudeQt33">
-	        	<div class="col-stt"><b>Stt</b></div>
-	            <div class="col-mota"><b>Mô tả công tác (ống ngánh)</b></div>
-	            <div class="col-dvt"><b>Đvt</b></div>
-	            <div class="col-soluong"><b>Số lượng</b></div>
-	            <div class="col-gia gia vl"><b>Giá vl</b></div>
-	            <div class="col-gia gia nc"><b>Giá nc</b></div>
-	            <div class="col-gia gia mtc"><b>Giá mtc</b></div>
-	            <div class="col-tien tien vl"><b>Trị giá vl</b></div>
-	            <div class="col-tien tien nc"><b>Trị giá nc</b></div>
-	            <div class="col-tien tien mtc"><b>Trị giá mtc</b></div>
-	        </div>
-	        <div class="row qt33" v-for="(item, index) in dataqt33">
-	            <div class="col-stt">{{item.stt}}</div>
-	            <div class="col-mota">{{item.diengiai}}</div>
-	            <div class="col-dvt">{{item.dvt}}</div>
-	            <div class="col-soluong">
-	            	<input v-model.number="item.soluong"
-						@keyup="onKeyUp"
-	            	>
-	            </div>
-	            <div class="col-gia gia vl">{{item.giavl | currency}}</div>
-	            <div class="col-gia gia nc">{{item.gianc | currency}}</div>
-	            <div class="col-gia gia mtc">{{item.giamtc | currency}}</div>
-	            <div class="col-tien tien vl">{{item.trigiavl | currency}}</div>
-	            <div class="col-tien tien nc">{{item.trigianc | currency}}</div>
-	            <div class="col-tien tien mtc">{{item.trigiamtc | currency}}</div>
-	            <!-- phần dữ liệu ẩn -->
-	            <div class="col-hiden" v-show=0>{{index}}</div>
-	            <div class="col-hiden" v-show=0>{{item.chiphiid}}</div>
-	        </div>
+        <div id="on-noidung">
+        	<div class="qt33">
+		        <div class="row tieude">
+		        	<div class="col0"><b>Stt</b></div>
+		            <div class="col1"><b>Mô tả công tác (ống ngánh)</b></div>
+		            <div class="col2"><b>Đvt</b></div>
+		            <div class="col3"><b>Số lượng</b></div>
+		            <div class="col4"><b>Giá vl</b></div>
+		            <div class="col5"><b>Giá nc</b></div>
+		            <div class="col6"><b>Giá mtc</b></div>
+		            <div class="col7"><b>Trị giá vl</b></div>
+		            <div class="col8"><b>Trị giá nc</b></div>
+		            <div class="col9"><b>Trị giá mtc</b></div>
+		        </div>
+		        <div class="row noidung" v-for="(item, index) in dataqt33">
+		            <div class="col0">{{item.stt}}</div>
+		            <div class="col1">{{item.diengiai}}</div>
+		            <div class="col2">{{item.dvt}}</div>
+		            <div class="col3">
+		            	<input type="number" v-model.number="item.soluong"
+							@keyup="onKeyUp"
+		            	>
+		            </div>
+		            <div class="col4">{{item.giavl | currency}}</div>
+		            <div class="col5">{{item.gianc | currency}}</div>
+		            <div class="col6">{{item.giamtc | currency}}</div>
+		            <div class="col7">{{item.trigiavl | currency}}</div>
+		            <div class="col8">{{item.trigianc | currency}}</div>
+		            <div class="col9">{{item.trigiamtc | currency}}</div>
+		            <!-- phần dữ liệu ẩn -->
+		            <div class="col-hiden" v-show=0>{{index}}</div>
+		            <div class="col-hiden" v-show=0>{{item.chiphiid}}</div>
+		        </div>
+		    </div>
 	    </br>
 	    </br>
-	        <div class="row tieudeQt34">
-	        	<div class="col-stt"><b>Stt</b></div>
-	            <div class="col-mota"><b>Mô tả công tác (ống ngánh)</b></div>
-	            <div class="col-dvt"><b>Đvt</b></div>
-	            <div class="col-soluong"><b>Số lượng</b></div>
-	            <div class="col-gia gia vl"><b>Giá vl</b></div>
-	            <div class="col-gia gia nc"><b>Giá nc</b></div>
-	            <div class="col-gia gia mtc"><b>Giá mtc</b></div>
-	            <div class="col-tien tien vl"><b>Trị giá vl</b></div>
-	            <div class="col-tien tien nc"><b>Trị giá nc</b></div>
-	            <div class="col-tien tien mtc"><b>Trị giá mtc</b></div>
-	        </div>
-	        <div class="row qt34" v-for="(item, index) in dataqt34">
-	            <div class="col-stt">{{item.stt}}</div>
-	            <div class="col-mota">{{item.diengiai}}</div>
-	            <div class="col-dvt">{{item.dvt}}</div>
-	            <div class="col-soluong">
-	            	<input v-model.number="item.soluong"
-						@keyup="onKeyUp"
-	            	>
-	            </div>
-	            <div class="col-gia gia vl">{{item.giavl}}</div>
-	            <div class="col-gia gia nc">{{item.gianc}}</div>
-	            <div class="col-gia gia mtc">{{item.giamtc}}</div>
-	            <div class="col-tien tien vl">{{item.trigiavl}}</div>
-	            <div class="col-tien tien nc">{{item.trigianc}}</div>
-	            <div class="col-tien tien mtc">{{item.trigiamtc}}</div>
-	            <!-- phần dữ liệu ẩn -->
-	            <div class="col-hiden" v-show=0>{{index}}</div>
-	            <div class="col-hiden" v-show=0>{{item.chiphiid}}</div>
-	        </div>
-	        
+	    	<div class="qt34">
+		        <div class="row tieude">
+		        	<div class="col0"><b>Stt</b></div>
+		            <div class="col1"><b>Mô tả công tác (ống ngánh)</b></div>
+		            <div class="col2"><b>Đvt</b></div>
+		            <div class="col3"><b>Số lượng</b></div>
+		            <div class="col4"><b>Giá vl</b></div>
+		            <div class="col5"><b>Giá nc</b></div>
+		            <div class="col6"><b>Giá mtc</b></div>
+		            <div class="col7"><b>Trị giá vl</b></div>
+		            <div class="col8"><b>Trị giá nc</b></div>
+		            <div class="col9"><b>Trị giá mtc</b></div>
+		        </div>
+		        <div class="row noidung" v-for="(item, index) in dataqt34">
+		            <div class="col0">{{item.stt}}</div>
+		            <div class="col1">{{item.diengiai}}</div>
+		            <div class="col2">{{item.dvt}}</div>
+		            <div class="col3">
+		            	<input type="number" v-model.number="item.soluong"
+							@keyup="onKeyUp"
+		            	>
+		            </div>
+		            <div class="col4">{{item.giavl | currency}}</div>
+		            <div class="col5">{{item.gianc | currency}}</div>
+		            <div class="col6">{{item.giamtc | currency}}</div>
+		            <div class="col7">{{item.trigiavl | currency}}</div>
+		            <div class="col8">{{item.trigianc | currency}}</div>
+		            <div class="col9">{{item.trigiamtc | currency}}</div>
+		            <!-- phần dữ liệu ẩn -->
+		            <div class="col-hiden" v-show=0>{{index}}</div>
+		            <div class="col-hiden" v-show=0>{{item.chiphiid}}</div>
+		        </div>
+		    </div>
 		</div>
     </section>
 <!--
