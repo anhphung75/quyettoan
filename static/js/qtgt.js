@@ -18,6 +18,7 @@ function formatTien(t) {
 
 var app = new Vue({
     el: '#qtgt',
+    delimiters: ["{`", "`}"],
     filters: {
         currency(t) {
             if (t==0)
@@ -25,6 +26,48 @@ var app = new Vue({
         return new Intl.NumberFormat('vi-VI',{useGrouping:true,minimumIntegerDigits:1}).format(t);}
         },
     methods:{
+        addQt31: function() {
+            this.dataqt31.push({stt:100,chiphiid:1,diengiai:'',dvt:'',soluong:1,giavl:0,gianc:0,giamtc:0,
+                trigiamtc:0,trigianc:0,trigiamtc:0
+            });
+        },
+        addQt32: function() {
+            this.dataqt32.push({stt:100,chiphiid:1,diengiai:'',dvt:'',soluong:1,giavl:0,gianc:0,giamtc:0,
+                trigiamtc:0,trigianc:0,trigiamtc:0
+            });
+        },
+        addQt33: function() {
+            this.dataqt33.push({stt:100,chiphiid:1,diengiai:'',dvt:'',soluong:1,giavl:0,gianc:0,giamtc:0,
+                trigiamtc:0,trigianc:0,trigiamtc:0
+            });
+        },
+        addQt34: function() {
+            this.dataqt34.push({stt:100,chiphiid:1,diengiai:'',dvt:'',soluong:1,giavl:0,gianc:0,giamtc:0,
+                trigiamtc:0,trigianc:0,trigiamtc:0
+            });
+        },
+        addQt35: function() {
+            this.dataqt35.push({stt:100,chiphiid:1,diengiai:'',sl_oc:1,sl_on:0,dongia:0,trigia_oc:0,trigia_on:0
+            });
+        },
+        removeQt31(item) {
+          this.dataqt31.splice(this.dataqt31.indexOf(item), 1);
+        },
+        removeQt32(item) {
+          this.dataqt32.splice(this.dataqt32.indexOf(item), 1);
+        },
+        removeQt33(item) {
+          this.dataqt33.splice(this.dataqt33.indexOf(item), 1);
+        },
+        removeQt34(item) {
+          this.dataqt34.splice(this.dataqt34.indexOf(item), 1);
+        },
+        removeQt35(item) {
+          this.dataqt35.splice(this.dataqt35.indexOf(item), 1);
+        },
+        removeQt31At(index) {
+          this.dataqt31.splice(index, 1);
+        },
         onKeyUp:function(){
             if (event) {
                 //alert(event.target.tagName)
@@ -86,6 +129,7 @@ var app = new Vue({
         curHeso:7,curBaogia:20180903,
         hesoNc:1,hesoMtc:1,hesoTtpk:0,hesoCpchung:0,hesoThunhaptt:0,hesoKhaosat:0,hesoThietke:0,hesoGstc:0,
         "dataqt31": [{
+                stt:1,
                 chiphiid: 1,
                 diengiai: 'Van bi cóc đồng 1" x 32',
                 dvt: 'cái',
@@ -97,6 +141,7 @@ var app = new Vue({
                 trigianc: 0,
                 trigiamtc: 0
             }, {
+                stt:2,
                 chiphiid: 2,
                 diengiai: 'Van góc liên hợp đồng 1" x 32 them cho dai ne Van góc liên hợp đồng 1" x 32 Van góc liên hợp đồng 1" x 32',
                 dvt: 'cái',
@@ -108,6 +153,7 @@ var app = new Vue({
                 trigianc: 0,
                 trigiamtc: 0
             }, {
+                stt:3,
                 chiphiid: 3,
                 diengiai: 'Van thau 1"',
                 dvt: 'cái',
@@ -119,6 +165,7 @@ var app = new Vue({
                 trigianc: 0,
                 trigiamtc: 0
             }, {
+                stt:4,
                 chiphiid: 4,
                 diengiai: 'Khâu nối ĐHN 25 ly',
                 dvt: 'cái',
@@ -130,6 +177,7 @@ var app = new Vue({
                 trigianc: 0,
                 trigiamtc: 0
             }, {
+                stt:5,
                 chiphiid: 5,
                 diengiai: 'Keo lụa (cao su non)',
                 dvt: 'cái',
@@ -141,6 +189,7 @@ var app = new Vue({
                 trigianc: 0,
                 trigiamtc: 0
             }, {
+                stt:6,
                 chiphiid: 6,
                 diengiai: 'Joint khâu nối ĐHN 25 ly',
                 dvt: 'cái',
@@ -153,6 +202,7 @@ var app = new Vue({
                 trigiamtc: 0
             }],
             "dataqt32": [{
+                stt:1,
                 chiphiid: 1,
                 diengiai: 'Van bi cóc đồng 1" x 32',
                 dvt: 'cái',
@@ -164,6 +214,7 @@ var app = new Vue({
                 trigianc: 0,
                 trigiamtc: 0
             }, {
+                stt:2,
                 chiphiid: 2,
                 diengiai: 'Van góc liên hợp đồng 1" x 32',
                 dvt: 'cái',
@@ -175,6 +226,7 @@ var app = new Vue({
                 trigianc: 0,
                 trigiamtc: 0
             }, {
+                stt:3,
                 chiphiid: 3,
                 diengiai: 'Van thau 1"',
                 dvt: 'cái',
@@ -186,6 +238,7 @@ var app = new Vue({
                 trigianc: 0,
                 trigiamtc: 0
             }, {
+                stt:4,
                 chiphiid: 4,
                 diengiai: 'Khâu nối ĐHN 25 ly',
                 dvt: 'cái',
@@ -197,6 +250,7 @@ var app = new Vue({
                 trigianc: 0,
                 trigiamtc: 0
             }, {
+                stt:5,
                 chiphiid: 5,
                 diengiai: 'Keo lụa (cao su non)',
                 dvt: 'cái',
@@ -208,6 +262,7 @@ var app = new Vue({
                 trigianc: 0,
                 trigiamtc: 0
             }, {
+                stt:6,
                 chiphiid: 6,
                 diengiai: 'Joint khâu nối ĐHN 25 ly',
                 dvt: 'cái',
@@ -370,34 +425,31 @@ var app = new Vue({
                 chiphiid: 1,
                 diengiai: 'Lề xi măng',
                 dvt: 'm2',
-                sl1: 1.25,
-                sl2:0.75,
+                sl_oc: 1.25,
+                sl_on:0.75,
                 dongia:213000,
-                trigia1: 10,
-                trigia2: 0,
-                ghichu: ""
+                trigia_oc: 10,
+                trigia_on: 0
             }, {
                 stt:2,
                 chiphiid: 2,
                 diengiai: 'Nhựa dày 10 cm',
                 dvt: 'm2',
-                sl1: 0.00,
-                sl2:0.00,
+                sl_oc: 0.00,
+                sl_on:0.00,
                 dongia:890000,
-                trigia1: 0.0,
-                trigia2: 0.0,
-                ghichu: ""
+                trigia_oc: 0.0,
+                trigia_on: 0.0
             }, {
                 stt:3,
                 chiphiid: 3,
                 diengiai: 'Bê tông xi măng',
                 dvt: 'm2',
-                sl1: 0.00,
-                sl2:0.00,
+                sl_oc: 0.00,
+                sl_on:0.00,
                 dongia:890000,
-                trigia1: 0.0,
-                trigia2: 0.0,
-                ghichu: ""
+                trigia_oc: 0.0,
+                trigia_on: 0.0
             }]
     }}
 });
