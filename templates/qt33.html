@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Phòng kế hoạch</title>
+    <!-- Required Stylesheets
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/qtgt.css">
+</head>
+
+<body>
+	<details id="qt33">
+        <summary class="row tieude">
+        	<div class="col-stt"><b>Stt</b></div>
+            <div class="col-chiphi"><b>Mô tả công tác (ống ngánh)</b></div>
+            <div class="col-dvt"><b>Đvt</b></div>
+            <div class="col-sl"><b>Số lượng</b></div>
+            <div class="col-vl"><b>Giá vl</b></div>
+            <div class="col-nc"><b>Giá nc</b></div>
+            <div class="col-mtc"><b>Giá mtc</b></div>
+            <div class="col-vl"><b>Trị giá vl</b></div>
+            <div class="col-nc"><b>Trị giá nc</b></div>
+            <div class="col-mtc"><b>Trị giá mtc</b></div>
+            <div class="col-crud"></div>
+        </summary>
+        <div class="row noidung" v-for="(item, i) in dataqt33"
+            v-key="i" draggable="true" 
+            @dragstart="dragStart(i, $event)" 
+            @dragover.prevent 
+            @dragend="dragEnd" 
+            @drop="dragFinish(i, $event)"
+        >
+            <div class="col-stt">{`i`}</div>
+            <div class="col-chiphi">{`item.diengiai`}</div>
+            <div class="col-dvt">{`item.dvt`}</div>
+            <div class="col-sl">
+            	<input type="number" v-model.number="item.soluong"
+					@keyup="onKeyUp"
+            	>
+            </div>
+            <div class="col-vl">{`item.giavl | currency`}</div>
+            <div class="col-nc">{`item.gianc | currency`}</div>
+            <div class="col-mtc">{`item.giamtc | currency`}</div>
+            <div class="col-vl">{`item.trigiavl | currency`}</div>
+            <div class="col-nc">{`item.trigianc | currency`}</div>
+            <div class="col-mtc">{`item.trigiamtc | currency`}</div>
+            <!-- CRUD control -->
+            <div class="col-crud">
+                <span class="edit-item" @click="editQt33(item)">edit</span>
+                <span class="remove-item" @click="removeQt33(item)"> x</span>
+            </div>
+            <!-- phần dữ liệu ẩn -->
+            <div class="col-hidden" v-show=0>
+                {`index`}
+                {`item.chiphiid`}
+            </div>
+        </div>
+        <div class="row tongcong">
+            <div class="btn">
+                <button type="button" class="btn btn-primary" @click="addItem">Add record</button>
+            </div>
+            <div class="col-tong"><b>Tổngcộng</b></div>
+            <div class="col-vl"><b>{`vl | currency`}</b></br>vl</div>
+            <div class="col-nc"><b>{`nc| currency`}</b></br>nc</div>
+            <div class="col-mtc"><b>{`mtc | currency`}</b></br>mtc</div>
+        </div>
+    </details>
+    	    
+    <!-- script block -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="../static/js/qtgt.js"></script>
+</body>
+
+</html>
