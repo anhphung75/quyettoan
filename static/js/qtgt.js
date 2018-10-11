@@ -16,7 +16,7 @@ function currency(t) {
     {useGrouping:true,minimumIntegerDigits:1}).format(t);
 };
 
-var app = new Vue({
+var qt33 = new Vue({
     el: '#qt33',
     delimiters: ["{`", "`}"],
     filters: {
@@ -26,8 +26,8 @@ var app = new Vue({
         return new Intl.NumberFormat('vi-VI',{useGrouping:true,minimumIntegerDigits:1}).format(t);}
         },
     methods:{
-        addItem: function() {
-            this.dataqt33.push({stt:100,chiphiid:1,diengiai:'',dvt:'',soluong:1,giavl:0,gianc:0,giamtc:0,
+        addItem() {
+            this.dataqt33.push({isChon:false,chiphiid:1,diengiai:'',dvt:'',soluong:1,giavl:0,gianc:0,giamtc:0,
                 trigiamtc:0,trigianc:0,trigiamtc:0
             });
         },
@@ -57,13 +57,10 @@ var app = new Vue({
                 this.dataqt33.splice(to, 0, this.dataqt33.splice(from, 1)[0]);
             }
         },
-        onKeyUp:function(){
-            if (event) {
-                //alert(event.target.tagName)
-            };
-            if (event.key == "Enter"){
-                //this.$refs.userId.focus();
-            }
+        onSlEnter(item){
+            let a=this.dataqt33.indexOf(item) + 1;
+            console.log("id=" + a);
+            this.dataqt33[a+1].soluong.setfocus();
         },
         qt33Up1row: function(event){
             
@@ -102,7 +99,6 @@ var app = new Vue({
         loichao:'hello',
         dragging: -1,
         "dataqt33": [{
-            stt:1,
             chiphiid: 1,
             diengiai: 'Van bi cóc đồng 1" x 32',
             dvt: 'cái',
@@ -114,7 +110,6 @@ var app = new Vue({
             trigianc: 0,
             trigiamtc: 0
         }, {
-            stt:2,
             chiphiid: 2,
             diengiai: 'Van góc liên hợp đồng 1" x 32 them cho dai ne Van góc liên hợp đồng 1" x 32Van góc liên hợp đồng 1" x 32Van góc liên hợp đồng 1" x 32',
             dvt: 'cái',
@@ -126,7 +121,6 @@ var app = new Vue({
             trigianc: 0,
             trigiamtc: 0
         }, {
-            stt:3,
             chiphiid: 3,
             diengiai: 'Van thau 1"',
             dvt: 'cái',
@@ -138,7 +132,6 @@ var app = new Vue({
             trigianc: 0,
             trigiamtc: 0
         }, {
-            stt:4,
             chiphiid: 4,
             diengiai: 'Khâu nối ĐHN 25 ly',
             dvt: 'cái',
@@ -150,7 +143,6 @@ var app = new Vue({
             trigianc: 0,
             trigiamtc: 0
         }, {
-            stt:5,
             chiphiid: 5,
             diengiai: 'Keo lụa (cao su non)',
             dvt: 'cái',
@@ -162,7 +154,6 @@ var app = new Vue({
             trigianc: 0,
             trigiamtc: 0
         }, {
-            stt:6,
             chiphiid: 6,
             diengiai: 'Joint khâu nối ĐHN 25 ly',
             dvt: 'cái',

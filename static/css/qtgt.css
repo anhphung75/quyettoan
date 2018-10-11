@@ -57,6 +57,7 @@ text-align:center;
     background-color: var(--row-hover-color);
 }
 
+.col-crud{flex:0 1 auto;background-color: var(--main-bg-color);}
 .col-stt{flex:0 1 5%;background-color: var(--main-bg-color);}
 .col-chiphi{flex:0 1 25%;background-color: var(--main-bg-color);}
 .col-dvt{flex:0 1 5%;background-color: var(--main-bg-color);}
@@ -64,13 +65,9 @@ text-align:center;
 .col-vl{flex:0 1 9%;background-color: var(--main-bg-color);color: red;}
 .col-nc{flex:0 1 9%;background-color: var(--main-bg-color);color: blue;}
 .col-mtc{flex:1 1 9%;background-color: var(--main-bg-color);color: magenta;}
-.col-crud{flex:0 1 2%;background-color: var(--main-bg-color);}
-.col7{flex:0 1 10%;background-color: var(--main-bg-color);color: red;}
-.col8{flex:0 1 10%;background-color: var(--main-bg-color);color: blue;}
-.col9{flex:0 1 10%;background-color: var(--main-bg-color);color: magenta;}
 
 .tongcong>.btn{flex:0 1 46%;background-color: var(--main-bg-color);}
-.tongcong>.col-tong{flex:0 1 27%;background-color: var(--main-bg-color);}
+.tongcong>.col-tong{flex:0 1 25%;background-color: var(--main-bg-color);}
 .tongcong>.col-vl{flex:0 1 9%;background-color: var(--main-bg-color);color: red;}
 .tongcong>.col-nc{flex:0 1 9%;background-color: var(--main-bg-color);color: blue;}
 .tongcong>.col-mtc{flex:1 1 9%;background-color: var(--main-bg-color);color: magenta;}
