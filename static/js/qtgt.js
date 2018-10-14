@@ -21,10 +21,86 @@ Vue.filter('currency',function(t){
 });
 
 /* dữ liệu tham chiếu */
+var chiphi={
+    "DC201810121011": //PL + yyyymmddhhmm
+        {chiphiid:1,
+        diengiai:"Cắt mặt nhựa và BTXM",
+        dvt:"mét",
+        masovattu:"",
+        baocao_qtvt:"",
+        baocao_qtgt:"",
+        dm_beton:0,
+        dm_van:0,
+        dm_cat_on:0,
+        dm_cat_oc:0},
+    "VT201810121011": //PL + yyyymmddhhmm
+        {chiphiid:2,
+        diengiai:"Đai khởi thủy 100 x 3/4'",
+        dvt:"cái",
+        masovattu:"",
+        baocao_qtvt:"",
+        baocao_qtgt:"",
+        dm_beton:0,
+        dm_van:0,
+        dm_cat_on:0,
+        dm_cat_oc:0},
+    "TL201810121011": //PL + yyyymmddhhmm
+        {chiphiid:3,
+        diengiai:"Bê tông xi măng",
+        dvt:"m2",
+        masovattu:"",
+        baocao_qtvt:"",
+        baocao_qtgt:"",
+        dm_beton:0,
+        dm_van:0,
+        dm_cat_on:0,
+        dm_cat_oc:0}
+};
+var baogia={
+    "20181012":{
+        "DC201810121011":{giavl:100,gianc:0,giamtc:0},
+        "VT201810121011":{giavl:1000,gianc:0,giamtc:0},
+        "TL201810121011":{giavl:100000,gianc:0,giamtc:0},
+        "1":{giavl:100,gianc:0,giamtc:0},
+        "2":{giavl:1000,gianc:0,giamtc:0},
+        "3":{giavl:100000,gianc:0,giamtc:0}
+    },
+    "20181001":{
+        "DC201810121011":{giavl:200,gianc:0,giamtc:0},
+        "VT201810121011":{giavl:2000,gianc:0,giamtc:0},
+        "TL201810121011":{giavl:200000,gianc:0,giamtc:0}
+    }
+};
+var heso={nc:1,mtc:1,ttpk:0,cpchung:0.05,thunhaptt:0.055,khaosat:0.0236,thietke:1.2,gstc:0.02566};
+var plqt=["GMMP","GMDT","TLMP","TLDT"];
+var dvtc=["TCTB","QLMLQ2","QLMLQ9","QLMLTD"];
+
+var qt31=qt32=qt33=qt34=[
+    {chiphiid: 1,soluong: 4,
+        diengiai: 'Van bi cóc đồng 1" x 32',dvt: 'cái',
+        giavl: 2000,gianc: 220,giamtc: 10,
+        trigiamtc: 1,trigianc: 0,trigiamtc: 0},
+    {chiphiid: 2,soluong: 2,
+        diengiai: 'Van góc liên hợp đồng 1" x 32 them cho dai ne Van góc liên hợp đồng 1" x 32',dvt: 'cái',
+        giavl: 2000,gianc: 300,giamtc: 0,
+        trigiamtc: 1,trigianc: 0,trigiamtc: 0},
+    {chiphiid: 3,soluong: 4,
+        diengiai: 'Khâu nối ĐHN 15 ly',dvt: 'cái',
+        giavl: 2000,gianc: 500,giamtc: 0,
+        trigiamtc: 1,trigianc: 0,trigiamtc: 0}
+];
+var qt35=[
+    {chiphiid:1,sl_oc:1,sl_on:0,trigia_oc:0,trigia_on:0,
+        diengiai:'',dongia:0},
+    {chiphiid:2,sl_oc:1,sl_on:0,trigia_oc:0,trigia_on:0,
+        diengiai:'',dongia:0},
+    {chiphiid:3,sl_oc:1,sl_on:0,trigia_oc:0,trigia_on:0,
+        diengiai:'',dongia:0}
+];
 
 /* dữ liệu quyết toán */
-var qt33 = new Vue({
-    el: '#qt33',
+var vqt33 = new Vue({
+    el: '#vqt33',
     delimiters: ["{`", "`}"],
     methods:{
         addItem() {
