@@ -14,159 +14,147 @@
 
 <body>
     <div id="qtgt">
-    <section id="ongnganh">
-        <div class="row tieude">
-        	<div class="col"><h3>Ống ngánh </h3></div>
-        	<div class="col-vl"><b>vl</br>{`onVl | currency`}</b></div>
-        	<div class="col-nc"><b>nc</br>{`onNc0 | currency`}</b></div>
-        	<div class="col-mtc"><b>mtc</br>{`onMtc0 | currency`}</b></div>
-        </div>
-        <div id="on-noidung">
-        	<div class="qt33">
-		        <div class="row tieude">
-		        	<div class="col-stt"><b>Stt</b></div>
-		            <div class="col-chiphi"><b>Mô tả công tác (ống ngánh)</b></div>
-		            <div class="col-dvt"><b>Đvt</b></div>
-		            <div class="col-sl"><b>Số lượng</b></div>
-		            <div class="col-vl"><b>Giá vl</b></div>
-		            <div class="col-nc"><b>Giá nc</b></div>
-		            <div class="col-mtc"><b>Giá mtc</b></div>
-		            <div class="col-vl"><b>Trị giá vl</b></div>
-		            <div class="col-nc"><b>Trị giá nc</b></div>
-		            <div class="col-mtc"><b>Trị giá mtc</b></div>
-                    <div class="col-crud"></div>
-		        </div>
-		        <div class="row noidung" v-for="(item, index) in dataqt33">
-		            <div class="col-stt">{`index`}</div>
-		            <div class="col-chiphi">{`item.diengiai`}</div>
-		            <div class="col-dvt">{`item.dvt`}</div>
-		            <div class="col-sl">
-		            	<input type="number" v-model.number="item.soluong"
-							@keyup="onKeyUp"
-		            	>
-		            </div>
-		            <div class="col-vl">{`item.giavl | currency`}</div>
-		            <div class="col-nc">{`item.gianc | currency`}</div>
-		            <div class="col-mtc">{`item.giamtc | currency`}</div>
-		            <div class="col-vl">{`item.trigiavl | currency`}</div>
-		            <div class="col-nc">{`item.trigianc | currency`}</div>
-		            <div class="col-mtc">{`item.trigiamtc | currency`}</div>
-                    <!-- CRUD control -->
-                    <div class="col-crud">
-                        <span class="edit-item" @click="editQt33(item)">edit</span>
-                        <span class="remove-item" @click="removeQt33(item)"> x</span>
-                    </div>
-		            <!-- phần dữ liệu ẩn -->
-		            <div class="col-hidden" v-show=0>
-                        {`item.stt`}
-                        {`item.chiphiid`}
-                    </div>
-		        </div>
-                <div class="row tongcong">
-                    <div class="btn">
-                        <button type="button" class="btn btn-primary" @click="addQt33">Add record</button>
-                    </div>
-                    <div class="col-tong"><b>Tổngcộng</b></div>
-                    <div class="col-vl"><b>{`onVl | currency`}</b></br>vl</div>
-                    <div class="col-nc"><b>{`onNc0 | currency`}</b></br>nc</div>
-                    <div class="col-mtc"><b>{`onMtc0 | currency`}</b></br>mtc</div>
-                </div>
-		    </div>
-    	    </br>
-    	    </br>
-	    	<div class="qt34">
-		        <div class="row tieude">
-		        	<div class="col0"><b>Stt</b></div>
-		            <div class="col1"><b>Mô tả vật tư (ống ngánh)</b></div>
-		            <div class="col2"><b>Đvt</b></div>
-		            <div class="col3"><b>Số lượng</b></div>
-		            <div class="col4"><b>Giá vl</b></div>
-		            <div class="col5"><b>Giá nc</b></div>
-		            <div class="col6"><b>Giá mtc</b></div>
-		            <div class="col7"><b>Trị giá vl</b></div>
-		            <div class="col8"><b>Trị giá nc</b></div>
-		            <div class="col9"><b>Trị giá mtc</b></div>
-		        </div>
-		        <div class="row noidung" v-for="(item, index) in dataqt34">
-		            <div class="col0">{`item.stt`}</div>
-		            <div class="col1">{`item.diengiai`}</div>
-		            <div class="col2">{`item.dvt`}</div>
-		            <div class="col3">
-		            	<input type="number" v-model.number="item.soluong"
-							@keyup="onKeyUp"
-		            	>
-		            </div>
-		            <div class="col4">{`item.giavl | currency`}</div>
-		            <div class="col5">{`item.gianc | currency`}</div>
-		            <div class="col6">{`item.giamtc | currency`}</div>
-		            <div class="col7">{`item.trigiavl | currency`}</div>
-		            <div class="col8">{`item.trigianc | currency`}</div>
-		            <div class="col9">{`item.trigiamtc | currency`}</div>
-		            <!-- phần dữ liệu ẩn -->
-		            <div class="col-hiden" v-show=0>{`index`}</div>
-		            <div class="col-hiden" v-show=0>{`item.chiphiid`}</div>
-		        </div>
-		    </div>
-		</div>
-    </section>
-<!--
-    <section class="tai-lap-mat-duong">
-    	<div class="row tieudeQt35">
-        	<div class="col-stt"><b>Stt</b></div>
-            <div class="col-mota"><b>Mô tả công tác (TLMD)</b></div>
-            <div class="col-dvt"><b>Đvt</b></div>
-            <div class="col-sl1"><b>SL Ong cai/b></div>
-            <div class="col-sl2"><b>SL Ong nganh/b></div>
-            <div class="col-gia gia"><b>Don giá</b></div>
-            <div class="col-tien tien"><b>Trị giá OC</b></div>
-            <div class="col-tien tien"><b>Trị giá ON</b></div>
-        </div>
-        <div class="row qt35 qt35-noidung" v-for="(item, index) in dataqt35">
-            <div class="col-stt">{`item.stt`}</div>
-            <div class="col-mota">{`item.diengiai`}</div>
-            <div class="col-dvt">{`item.dvt`}</div>
-            <div class="col-sl1">
-            	<input v-model.number="item.sl1"
-					@keyup="onKeyUp"
-            	>
+        <section id="ongcai">
+
+        </section>
+        </br></br>
+        <section id="ongnganh">
+
+        </section>
+        </br></br>
+        <section id="tailap">
+
+        </section>
+        </br></br>
+    	<section id="tongket1">
+    		<div class="row tieude">
+            	<div class="col-dvt"><b>Khoản mục chi phí</b></div>
+                <div class="col-dvt"><b>Cách tính</b></div>
+                <div class="col-dvt"><b>Ký hiệu</b></div>
+                <div class="col-dvt"><b>Ống cái</b></div>
+                <div class="col-dvt gia"><b>Ống ngánh</b></div>
             </div>
-            <div class="col-sl2">
-            	<input v-model.number="item.sl2"
-					@keyup="onKeyUp"
-            	>
+            <div class="row noidung">
+                <div class="col-chiphi">1.Chi phí vật tư (trước thuế )</div>
+                <div class="col-cachtinh">vl</div>
+                <div class="col-tien">{`c_Vl`}</div>
+                <div class="col-tien">{`n_Vl`}</div>
             </div>
-            <div class="col-gia gia">{`item.dongia`}</div>
-            <div class="col-tien tien nc">{`item.trigia1`}</div>
-            <div class="col-tien tien mtc">{`item.trigia2`}</div>
-            !-- phần dữ liệu ẩn --
-            <div class="col-hiden" v-show=0>{`index`}</div>
-            <div class="col-hiden" v-show=0>{`item.chiphiid`}</div>
-        </div>
-        
-    </section>
-</br>
-</br>
-	<section class="phan-tong-ket">
-		<div class="row tieude phantongket">
-        	<div class="col-dvt"><b>Stt</b></div>
-            <div class="col-dvt"><b>Mô tả công tác (TLMD)</b></div>
-            <div class="col-dvt"><b>Đvt</b></div>
-            <div class="col-dvt"><b>SL Ong cai</b></div>
-            <div class="col-dvt"><b>SL Ong nganh/b></div>
-            <div class="col-dvt gia"><b>Don giá</b></div>
-            <div class="col-dvt tien"><b>Trị giá OC</b></div>
-            <div class="col-dvt tien"><b>Trị giá ON</b></div>
-        </div>
-        <div class="row noidung phantongket">
-            <div class="col-dvt">Gxd1</div>
-            <div class="col-dvt">Gxd2</div>
-            <div class="col-dvt">Gxd</div>
-            !-- phần dữ liệu ẩn --
-            <div class="col-hiden" v-show=0>a</div>
-            <div class="col-hiden" v-show=0>b</div>
-        </div>
--->
-	</section>
+            <div class="row noidung">
+                <div class="col-chiphi">2.Chi phí nhân công</div>
+                <div class="col-cachtinh">nc x {`heso.nc`}</div>
+                <div class="col-tien">{`c_Nc`}</div>
+                <div class="col-tien">{`n_Nc`}</div>
+            </div>
+            <div class="row noidung">
+                <div class="col-chiphi">3.Chi phí máy thi công</div>
+                <div class="col-cachtinh">mtc x {`heso.mtc`}</div>
+                <div class="col-tien">{`c_Mtc`}</div>
+                <div class="col-tien">{`n_Mtc`}</div>
+            </div>
+            <div class="row noidung">
+                <div class="col-chiphi"></div>
+                <div class="col-cachtinh">Cộng</div>
+                <div class="col-tien">{`c_A`}</div>
+                <div class="col-tien">{`n_A`}</div>
+            </div>
+            <div class="row noidung">
+                <div class="col-chiphi">4.Trực tiếp phí khác</div>
+                <div class="col-cachtinh">A x {`heso.ttpk`}</div>
+                <div class="col-tien">{`c_Tt`}</div>
+                <div class="col-tien">{`n_Tt`}</div>
+            </div>
+            <div class="row noidung">
+                <div class="col-chiphi"></div>
+                <div class="col-cachtinh">Chi phí trực tiếp</div>
+                <div class="col-tien">{`c_T`}</div>
+                <div class="col-tien">{`n_T`}</div>
+            </div>
+            <div class="row noidung">
+                <div class="col-chiphi">5.Chi phí chung</div>
+                <div class="col-cachtinh">T x {`heso.cpchung`}</div>
+                <div class="col-tien">{`c_C`}</div>
+                <div class="col-tien">{`n_C`}</div>
+            </div>
+            <div class="row noidung">
+                <div class="col-chiphi"></div>
+                <div class="col-cachtinh">Giá thành xây dựng</div>
+                <div class="col-tien">{`c_Z`}</div>
+                <div class="col-tien">{`n_Z`}</div>
+            </div>
+            <div class="row noidung">
+                <div class="col-chiphi">6.Thu nhập chịu thuế tính trước</div>
+                <div class="col-cachtinh">Z x {`heso.thunhaptt`}</div>
+                <div class="col-tien">{`c_Tl`}</div>
+                <div class="col-tien">{`n_Tl`}</div>
+            </div>
+            <div class="row noidung">
+                <div class="col-chiphi"></div>
+                <div class="col-cachtinh">Giá trị xây dựng trước thuế</div>
+                <div class="col-tien">{`c_G`}</div>
+                <div class="col-tien">{`n_G`}</div>
+            </div>
+            <div class="row noidung">
+                <div class="col-chiphi">7.Chi phí khảo sát, thiết kế</div>
+                <div class="col-cachtinh">G x {`heso.khaosat`} x {`heso.thietke`} </div>
+                <div class="col-tien">{`c_I`}</div>
+                <div class="col-tien">{`n_I`}</div>
+            </div>
+            <div class="row noidung">
+                <div class="col-chiphi">8.Chi phí giám sát thi công</div>
+                <div class="col-cachtinh">G x {`heso.gstc`} </div>
+                <div class="col-tien">{`c_J`}</div>
+                <div class="col-tien">{`n_J`}</div>
+            </div>
+            <div class="row noidung">
+                <div class="col-chiphi"></div>
+                <div class="col-cachtinh">Tổng giá trị đầu tư xây dựng trước thuế</div>
+                <div class="col-tien">{`c_La`}</div>
+                <div class="col-tien">{`n_La`}</div>
+            </div>
+            <div class="row noidung">
+                <div class="col-chiphi">9.Thuế GTGT đầu ra</div>
+                <div class="col-cachtinh">L x 10%</div>
+                <div class="col-tien">{`c_Vat1`}</div>
+                <div class="col-tien">{`n_Vat1`}</div>
+            </div>
+            <div class="row noidung">
+                <div class="col-chiphi"></div>
+                <div class="col-cachtinh">Tổng giá trị đầu tư xây dựng sau thuế</div>
+                <div class="col-tien">{`c_Gxd1`}</div>
+                <div class="col-tien">{`n_Gxd1`}</div>
+            </div>
+    	</section>
+        </br></br>
+        <section id="tongket2">
+            <div class="row noidung">
+                <div class="col-chiphi"></div>
+                <div class="col-cachtinh">Cộng</div>
+                <div class="col-tien">{`c_Gxd2`}</div>
+                <div class="col-tien">{`n_Gxd2`}</div>
+            </div>
+            <div class="row noidung">
+                <div class="col-chiphi"></div>
+                <div class="col-cachtinh">Trong đó: giá trị trước thuế: Gxd2 x 100/110</div>
+                <div class="col-tien">{`c_Lb`}</div>
+                <div class="col-tien">{`n_Lb`}</div>
+            </div>
+            <div class="row noidung">
+                <div class="col-chiphi"></div>
+                <div class="col-cachtinh">THuế GTGT 10%</div>
+                <div class="col-tien">{`c_Vat2`}</div>
+                <div class="col-tien">{`n_Vat2`}</div>
+            </div>
+            <div class="row noidung">
+                <div class="col-chiphi"></div>
+                <div class="col-cachtinh">Tổng giá trị công trình: Gxd1 + Gxd2</div>
+                <div class="col-tien">{`Gxd`}</div>
+            </div>
+        </section>
+        </br></br>
+        <section id="kettoan">
+
+        </section>
     </div>
     <!-- script block -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>

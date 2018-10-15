@@ -132,12 +132,12 @@ var qt34=[
         trigiamtc: 1,trigianc: 0,trigiamtc: 0}
 ];
 var qt35=[
-    {chiphiid:1,sl_oc:1,sl_on:0,trigia_oc:0,trigia_on:0,
-        diengiai:'',dongia:0},
-    {chiphiid:2,sl_oc:1,sl_on:0,trigia_oc:0,trigia_on:0,
-        diengiai:'',dongia:0},
-    {chiphiid:3,sl_oc:1,sl_on:0,trigia_oc:0,trigia_on:0,
-        diengiai:'',dongia:0}
+    {chiphiid:1,sl_oc:1,sl_on:1,trigia_oc:0,trigia_on:0,
+        diengiai:'',dongia:10000},
+    {chiphiid:2,sl_oc:1,sl_on:2,trigia_oc:0,trigia_on:0,
+        diengiai:'',dongia:20000},
+    {chiphiid:3,sl_oc:1,sl_on:2,trigia_oc:0,trigia_on:0,
+        diengiai:'',dongia:30000}
 ];
 
 /* dữ liệu quyết toán */
@@ -242,11 +242,69 @@ var qtgt = new Vue({
             return this.dragging > -1
         },
         heso(){
-            let dataHeso='{"'+ this.maheso.toString() + '":{"nc":"1","mtc":"1","ttpk":"0","cpchung":"0.05",'
-            + '"thunhaptt":"0.055","khaosat":"0.0236","thietke":"1.2","gstc":"0.02566"}}';
+            let a=this.maheso.toString() 
+            let dataHeso='{"nc":"1","mtc":"1","ttpk":"0","cpchung":"0.05",'
+            + '"thunhaptt":"0.055","khaosat":"0.0236","thietke":"1.2","gstc":"0.02566"}';
             return JSON.parse(dataHeso)
         },
-        vl(){let total = 0;
+        c_vl(){let total = 0;
+            this.dataqt31.forEach(function(s) {
+                s.trigiavl = lamTronSo(s.soluong * s.giavl, 0);
+                total += parseInt(s.trigiavl);
+            });
+            this.dataqt32.forEach(function(s) {
+                s.trigiavl = lamTronSo(s.soluong * s.giavl, 0);
+                total += parseInt(s.trigiavl);
+            });
+            return total
+        },
+        c_nc(){let total = 0;
+            this.dataqt31.forEach(function(s) {
+                s.trigianc = lamTronSo(s.soluong * s.gianc, 0);
+                total += parseInt(s.trigianc);
+            });
+            this.dataqt32.forEach(function(s) {
+                s.trigianc = lamTronSo(s.soluong * s.gianc, 0);
+                total += parseInt(s.trigianc);
+            });
+            return total
+        },
+        c_mtc(){let total = 0;
+            this.dataqt31.forEach(function(s) {
+                s.trigiamtc = lamTronSo(s.soluong * s.giamtc, 0);
+                total += parseInt(s.trigiamtc);
+            });
+            this.dataqt32.forEach(function(s) {
+                s.trigiamtc = lamTronSo(s.soluong * s.giamtc, 0);
+                total += parseInt(s.trigiamtc);
+            });
+            return total
+        },
+        c_Vl(){return this.c_vl},
+        c_Nc(){return lamTronSo(this.c_nc * this.heso.nc,0)},
+        c_Mtc(){return lamTronSo(this.c_mtc * this.heso.mtc,0)},
+        c_A(){return (parseInt(this.c_vl) + parseInt(this.c_Nc) + parseInt(this.c_Mtc))},
+        c_Tt(){return lamTronSo(this.c_A * this.heso.ttpk,0)},
+        c_T(){return (parseInt(this.c_A) + parseInt(this.c_Tt))},
+        c_C(){return lamTronSo(this.c_T * this.heso.cpchung,0)},
+        c_Z(){return (parseInt(this.c_T) + parseInt(this.c_C))},
+        c_Tl(){return lamTronSo(this.c_Z * this.heso.thunhaptt,0)},
+        c_G(){return (parseInt(this.c_Z) + parseInt(this.c_Tl))},
+        c_I(){return lamTronSo(this.c_G * this.heso.khaosat * this.heso.thietke,0)},
+        c_J(){return lamTronSo(this.c_G * this.heso.gstc,0)},
+        c_La(){return (parseInt(this.c_G) + parseInt(this.c_I) + parseInt(this.c_J))},
+        c_Vat1(){return lamTronSo(this.c_La * 0.1,0)},
+        c_Gxd1(){return (parseInt(this.c_La) + parseInt(this.c_Vat1))},
+        c_Gxd2(){let total = 0;
+            this.dataqt35.forEach(function(s) {
+                s.trigia_oc = lamTronSo(s.sl_oc * s.dongia, -3);
+                total += parseInt(s.trigia_oc);
+            });
+            return total
+        },
+        c_Lb(){return lamTronSo(this.c_Gxd2 * 100 / 110,0)},
+        c_Vat2(){return (parseInt(this.c_Gxd2) - parseInt(this.c_Lb))},
+        n_vl(){let total = 0;
             this.dataqt33.forEach(function(s) {
                 s.trigiavl = lamTronSo(s.soluong * s.giavl, 0);
                 total += parseInt(s.trigiavl);
@@ -257,7 +315,7 @@ var qtgt = new Vue({
             });
             return total
         },
-        nc(){let total = 0;
+        n_nc(){let total = 0;
             this.dataqt33.forEach(function(s) {
                 s.trigianc = lamTronSo(s.soluong * s.gianc, 0);
                 total += parseInt(s.trigianc);
@@ -268,7 +326,7 @@ var qtgt = new Vue({
             });
             return total
         },
-        mtc(){let total = 0;
+        n_mtc(){let total = 0;
             this.dataqt33.forEach(function(s) {
                 s.trigiamtc = lamTronSo(s.soluong * s.giamtc, 0);
                 total += parseInt(s.trigiamtc);
@@ -278,8 +336,35 @@ var qtgt = new Vue({
                 total += parseInt(s.trigiamtc);
             });
             return total
-        }
-        
+        },
+        n_Vl(){return this.n_vl},
+        n_Nc(){return lamTronSo(this.n_nc * this.heso.nc,0)},
+        n_Mtc(){return lamTronSo(this.n_mtc * this.heso.mtc,0)},
+        n_A(){return (parseInt(this.n_vl) + parseInt(this.n_Nc) + parseInt(this.n_Mtc))},
+        n_Tt(){return lamTronSo(this.n_A * this.heso.ttpk,0)},
+        n_T(){return (parseInt(this.n_A) + parseInt(this.n_Tt))},
+        n_C(){return lamTronSo(this.n_T * this.heso.cpchung,0)},
+        n_Z(){return (parseInt(this.n_T) + parseInt(this.n_C))},
+        n_Tl(){return lamTronSo(this.n_Z * this.heso.thunhaptt,0)},
+        n_G(){return (parseInt(this.n_Z) + parseInt(this.n_Tl))},
+        n_I(){return lamTronSo(this.n_G * this.heso.khaosat * this.heso.thietke,0)},
+        n_J(){return lamTronSo(this.n_G * this.heso.gstc,0)},
+        n_La(){return (parseInt(this.n_G) + parseInt(this.n_I) + parseInt(this.n_J))},
+        n_Vat1(){return lamTronSo(this.n_La * 0.1,0)},
+        n_Gxd1(){return (parseInt(this.n_La) + parseInt(this.n_Vat1))},
+        n_Gxd2(){let total = 0;
+            this.dataqt35.forEach(function(s) {
+                s.trigia_on = lamTronSo(s.sl_on * s.dongia, -3);
+                total += parseInt(s.trigia_on);
+            });
+            return total
+        },
+        n_Lb(){return lamTronSo(this.n_Gxd2 * 100 / 110,0)},
+        n_Vat2(){return (parseInt(this.n_Gxd2) - parseInt(this.n_Lb))},
+        /* phần tổng kết */
+        tcA(){return (parseInt(this.n_Gxd1) + parseInt(this.c_Gxd1))},
+        tcB(){return (parseInt(this.n_Gxd2) + parseInt(this.c_Gxd2))},
+        Gxd(){return (parseInt(this.tcA) + parseInt(this.tcB))}
     },
     data() {return{
         errors: [],
@@ -287,7 +372,10 @@ var qtgt = new Vue({
         maheso:7,
         mabaogia:20181015,
         maqt:"2018GMMP001001",
+        "dataqt31": qt31,
+        "dataqt32": qt32,
         "dataqt33": qt33,
-        "dataqt34": qt34
+        "dataqt34": qt34,
+        "dataqt35": qt35
     }}
 });
