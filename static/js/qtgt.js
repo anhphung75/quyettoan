@@ -71,11 +71,53 @@ var baogia={
         "TL201810121011":{giavl:200000,gianc:0,giamtc:0}
     }
 };
-var heso={nc:1,mtc:1,ttpk:0,cpchung:0.05,thunhaptt:0.055,khaosat:0.0236,thietke:1.2,gstc:0.02566};
+//var heso={nc:1,mtc:1,ttpk:0,cpchung:0.05,thunhaptt:0.055,khaosat:0.0236,thietke:1.2,gstc:0.02566};
 var plqt=["GMMP","GMDT","TLMP","TLDT"];
 var dvtc=["TCTB","QLMLQ2","QLMLQ9","QLMLTD"];
 
-var qt31=qt32=qt33=qt34=[
+var qt31=[
+    {chiphiid: 1,soluong: 4,
+        diengiai: 'Van bi cóc đồng 1" x 32',dvt: 'cái',
+        giavl: 2000,gianc: 220,giamtc: 10,
+        trigiamtc: 1,trigianc: 0,trigiamtc: 0},
+    {chiphiid: 2,soluong: 2,
+        diengiai: 'Van góc liên hợp đồng 1" x 32 them cho dai ne Van góc liên hợp đồng 1" x 32',dvt: 'cái',
+        giavl: 2000,gianc: 300,giamtc: 0,
+        trigiamtc: 1,trigianc: 0,trigiamtc: 0},
+    {chiphiid: 3,soluong: 4,
+        diengiai: 'Khâu nối ĐHN 15 ly',dvt: 'cái',
+        giavl: 2000,gianc: 500,giamtc: 0,
+        trigiamtc: 1,trigianc: 0,trigiamtc: 0}
+];
+var qt32=[
+    {chiphiid: 1,soluong: 4,
+        diengiai: 'Van bi cóc đồng 1" x 32',dvt: 'cái',
+        giavl: 2000,gianc: 220,giamtc: 10,
+        trigiamtc: 1,trigianc: 0,trigiamtc: 0},
+    {chiphiid: 2,soluong: 2,
+        diengiai: 'Van góc liên hợp đồng 1" x 32 them cho dai ne Van góc liên hợp đồng 1" x 32',dvt: 'cái',
+        giavl: 2000,gianc: 300,giamtc: 0,
+        trigiamtc: 1,trigianc: 0,trigiamtc: 0},
+    {chiphiid: 3,soluong: 4,
+        diengiai: 'Khâu nối ĐHN 15 ly',dvt: 'cái',
+        giavl: 2000,gianc: 500,giamtc: 0,
+        trigiamtc: 1,trigianc: 0,trigiamtc: 0}
+];
+var qt33=[
+    {chiphiid: 1,soluong: 4,
+        diengiai: 'Van bi cóc đồng 1" x 32',dvt: 'cái',
+        giavl: 2000,gianc: 220,giamtc: 10,
+        trigiamtc: 1,trigianc: 0,trigiamtc: 0},
+    {chiphiid: 2,soluong: 2,
+        diengiai: 'Van góc liên hợp đồng 1" x 32 them cho dai ne Van góc liên hợp đồng 1" x 32',dvt: 'cái',
+        giavl: 2000,gianc: 300,giamtc: 0,
+        trigiamtc: 1,trigianc: 0,trigiamtc: 0},
+    {chiphiid: 3,soluong: 4,
+        diengiai: 'Khâu nối ĐHN 15 ly',dvt: 'cái',
+        giavl: 2000,gianc: 500,giamtc: 0,
+        trigiamtc: 1,trigianc: 0,trigiamtc: 0}
+];
+var qt34=[
     {chiphiid: 1,soluong: 4,
         diengiai: 'Van bi cóc đồng 1" x 32',dvt: 'cái',
         giavl: 2000,gianc: 220,giamtc: 10,
@@ -99,59 +141,117 @@ var qt35=[
 ];
 
 /* dữ liệu quyết toán */
-var vqt33 = new Vue({
-    el: '#vqt33',
+var qtgt = new Vue({
+    el: '#qtgt',
     delimiters: ["{`", "`}"],
     methods:{
-        addItem() {
-            this.dataqt33.push({isChon:false,chiphiid:1,diengiai:'',dvt:'',soluong:1,giavl:0,gianc:0,giamtc:0,
+        dragEnd(ev) {
+            this.dragging = -1
+        },
+        addItemQt33() {
+            this.dataqt33.push({chiphiid:1,soluong:1,
+                diengiai:'',dvt:'',
+                giavl:0,gianc:0,giamtc:0,
                 trigiamtc:0,trigianc:0,trigiamtc:0
             });
         },
-        removeItem(item) {
+        removeItemQt33(item) {
           this.dataqt33.splice(this.dataqt33.indexOf(item), 1);
         },
-        removeItemAt(index) {
+        removeItemQt33At(index) {
           this.dataqt33.splice(index, 1);
         },
-        dragStart(which, ev) {
+        dragQt33Start(which, ev) {
             ev.dataTransfer.setData('Text', this.id);
             ev.dataTransfer.dropEffect = 'move'
             this.dragging = which;
         },
-        dragEnd(ev) {
-            this.dragging = -1
-        },
-        dragFinish(to, ev) {
-            this.moveItem(this.dragging, to);
+        dragQt33Finish(to, ev) {
+            this.moveItemQt33(this.dragging, to);
             ev.target.style.marginTop = '2px'
             ev.target.style.marginBottom = '2px'
         },
-        moveItem(from, to) {
+        moveItemQt33(from, to) {
             if (to === -1) {
-                this.removeItemAt(from);
+                this.removeItemQt33At(from);
             } else {
                 this.dataqt33.splice(to, 0, this.dataqt33.splice(from, 1)[0]);
             }
         },
-        downSoluong(stt){
+        downSoluongQt33(stt){
             let nextstt=parseInt(stt) +1
             setFocus("qt33sl-" +nextstt);
         },
-        move2Chiphi(stt){
+        move2ChiphiQt33(stt){
             setFocus("qt33cp-"+stt);
         },
-        downChiphi(stt){
+        downChiphiQt33(stt){
             let nextstt=parseInt(stt) +1
             setFocus("qt33cp-" +nextstt);
         },
-        move2Soluong(stt){
+        move2SoluongQt33(stt){
             setFocus("qt33sl-"+stt);
+        },
+        addItemQt34() {
+            this.dataqt34.push({chiphiid:1,soluong:1,
+                diengiai:'',dvt:'',
+                giavl:0,gianc:0,giamtc:0,
+                trigiamtc:0,trigianc:0,trigiamtc:0
+            });
+        },
+        removeItemQt34(item) {
+          this.dataqt34.splice(this.dataqt34.indexOf(item), 1);
+        },
+        removeItemQt34At(index) {
+          this.dataqt34.splice(index, 1);
+        },
+        dragQt34Start(which, ev) {
+            ev.dataTransfer.setData('Text', this.id);
+            ev.dataTransfer.dropEffect = 'move'
+            this.dragging = which;
+        },
+        dragQt34Finish(to, ev) {
+            this.moveItemQt34(this.dragging, to);
+            ev.target.style.marginTop = '2px'
+            ev.target.style.marginBottom = '2px'
+        },
+        moveItemQt34(from, to) {
+            if (to === -1) {
+                this.removeItemQt34At(from);
+            } else {
+                this.dataqt34.splice(to, 0, this.dataqt34.splice(from, 1)[0]);
+            }
+        },
+        downSoluongQt34(stt){
+            let nextstt=parseInt(stt) +1
+            setFocus("qt34sl-" +nextstt);
+        },
+        move2ChiphiQt34(stt){
+            setFocus("qt34cp-"+stt);
+        },
+        downChiphiQt34(stt){
+            let nextstt=parseInt(stt) +1
+            setFocus("qt34cp-" +nextstt);
+        },
+        move2SoluongQt34(stt){
+            setFocus("qt34sl-"+stt);
         }
     },
     computed:{
+        isDragging(){
+            return this.dragging > -1
+        },
+        heso(){
+            let dataHeso='{"'+ this.maheso.toString() + '":{"nc":"1","mtc":"1","ttpk":"0","cpchung":"0.05",'
+            + '"thunhaptt":"0.055","khaosat":"0.0236","thietke":"1.2","gstc":"0.02566"}}';
+            return JSON.parse(dataHeso)
+        },
         vl(){let total = 0;
             this.dataqt33.forEach(function(s) {
+                s.trigiavl = lamTronSo(s.soluong * s.giavl, 0);
+                total += parseInt(s.trigiavl);
+            });
+            this.dataqt34.forEach(function(s) {
                 s.trigiavl = lamTronSo(s.soluong * s.giavl, 0);
                 total += parseInt(s.trigiavl);
             });
@@ -162,6 +262,10 @@ var vqt33 = new Vue({
                 s.trigianc = lamTronSo(s.soluong * s.gianc, 0);
                 total += parseInt(s.trigianc);
             });
+            this.dataqt34.forEach(function(s) {
+                s.trigianc = lamTronSo(s.soluong * s.gianc, 0);
+                total += parseInt(s.trigianc);
+            });
             return total
         },
         mtc(){let total = 0;
@@ -169,81 +273,21 @@ var vqt33 = new Vue({
                 s.trigiamtc = lamTronSo(s.soluong * s.giamtc, 0);
                 total += parseInt(s.trigiamtc);
             });
+            this.dataqt34.forEach(function(s) {
+                s.trigiamtc = lamTronSo(s.soluong * s.giamtc, 0);
+                total += parseInt(s.trigiamtc);
+            });
             return total
-        },
-        isDragging(){
-            return this.dragging > -1
         }
+        
     },
     data() {return{
-        loichao:'hello',
+        errors: [],
         dragging: -1,
-        "dataqt33": [{
-            chiphiid: 1,
-            diengiai: 'Van bi cóc đồng 1" x 32',
-            dvt: 'cái',
-            soluong: 4,
-            giavl: 2000,
-            gianc: 0,
-            giamtc: 0,
-            trigiamtc: 1,
-            trigianc: 0,
-            trigiamtc: 0
-        }, {
-            chiphiid: 2,
-            diengiai: 'Van góc liên hợp đồng 1" x 32 them cho dai ne Van góc liên hợp đồng 1" x 32Van góc liên hợp đồng 1" x 32Van góc liên hợp đồng 1" x 32',
-            dvt: 'cái',
-            soluong: 0,
-            giavl: 0,
-            gianc: 0,
-            giamtc: 200,
-            trigiamtc: 0,
-            trigianc: 0,
-            trigiamtc: 0
-        }, {
-            chiphiid: 3,
-            diengiai: 'Van thau 1"',
-            dvt: 'cái',
-            soluong: 0,
-            giavl: 0,
-            gianc: 0,
-            giamtc: 0,
-            trigiamtc: 0,
-            trigianc: 0,
-            trigiamtc: 0
-        }, {
-            chiphiid: 4,
-            diengiai: 'Khâu nối ĐHN 25 ly',
-            dvt: 'cái',
-            soluong: 0,
-            giavl: 0,
-            gianc: 0,
-            giamtc: 0,
-            trigiamtc: 0,
-            trigianc: 0,
-            trigiamtc: 0
-        }, {
-            chiphiid: 5,
-            diengiai: 'Keo lụa (cao su non)',
-            dvt: 'cái',
-            soluong: 0,
-            giavl: 0,
-            gianc: 0,
-            giamtc: 0,
-            trigiamtc: 0,
-            trigianc: 0,
-            trigiamtc: 0
-        }, {
-            chiphiid: 6,
-            diengiai: 'Joint khâu nối ĐHN 25 ly',
-            dvt: 'cái',
-            soluong: 0,
-            giavl: 0,
-            gianc: 0,
-            giamtc: 0,
-            trigiamtc: 0,
-            trigianc: 0,
-            trigiamtc: 0
-        }]
+        maheso:7,
+        mabaogia:20181015,
+        maqt:"2018GMMP001001",
+        "dataqt33": qt33,
+        "dataqt34": qt34
     }}
 });

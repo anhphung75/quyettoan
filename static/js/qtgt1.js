@@ -35,6 +35,19 @@ var app = new Vue({
         }
     },
     computed:{
+        /*
+        heso(){
+            axios
+            .get('/api/heso/' + this.maheso)
+            .then(response => {return response.data})
+            .catch(error => {console.log(error)})
+        };
+        async heso(){
+            try {
+            response = await axios.get('http://jsonplaceholder.typicode.com/posts')
+            return response.data
+            } catch (e) {this.errors.push(e)}
+            */
         /* phần ống ngánh */
         ongNganh: function() {
             var data3x = this.dataqt33.concat(this.dataqt34);
