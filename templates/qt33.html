@@ -41,8 +41,11 @@
                     </button>
                 </div>
                 <div class="col-id">{`stt+1`}</div>
-                <div class="col-chiphi" :id="'qt33cp-' + stt">{`item.diengiai`}
-                    
+                <div class="col-chiphi">                   
+                    <input type="text" v-model="item.machiphi" :id="'qt33cp-' + stt"
+                        @change="updateItemQt33(item)"
+                        
+                    >
                 </div>
                 <div class="col-dvt">{`item.dvt`}</div>
                 <div class="col-sl">
@@ -70,7 +73,7 @@
             </div>
         </section>
         </br></br>
-        <p> thu cai xem ne {`heso.khaosat`}</p>
+        
         </br></br>
         <section id="qt34">
             <div class="row tieude">
