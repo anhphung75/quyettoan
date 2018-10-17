@@ -1,11 +1,16 @@
 function lamTronSo(socanlamtron = 0, sole = 0) {
-    var soCanlamtron,soLe;
     if ((typeof socanlamtron !== 'number') || (typeof sole !== 'number') || 
-        (socanlamtron<0) || (sole<0) || (sole>9))
+        (socanlamtron<0) || (sole<-9) || (sole>9))
         return NaN;
-        soCanlamtron = parseFloat(socanlamtron) || 0;
-        soLe=parseInt(sole) || 0;
-    return soCanlamtron.toFixed(soLe);
+    let s = parseFloat(socanlamtron) || 0;
+    let l =parseInt(sole) || 0;
+    if (l<0){
+        let m=10**Math.abs(l);
+        let a = parseFloat(s/m);
+        return a.toFixed(0)*m;
+    } else {
+        return s.toFixed(l);
+    }
 };
 function setFocus(elementID) {let a= elementID.split("-");
     try {document.getElementById(elementID).focus();}

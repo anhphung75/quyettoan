@@ -57,6 +57,9 @@ text-align:center;
     background-color: var(--row-hover-color);
 }
 
+
+
+
 .col-crud{flex:0 1 auto;background-color: var(--main-bg-color);}
 .col-stt{flex:0 1 5%;background-color: var(--main-bg-color);}
 .col-chiphi{flex:0 1 25%;background-color: var(--main-bg-color);}
@@ -96,3 +99,14 @@ input{width: 100%;}
 	border: 0px 1px 0px 1px solid var(--main-border-color);
 	text-transform: capitalize;
 }
+
+#tongket .col-0{order:1;flex:0 1 30%;background-color: var(--main-bg-color);}
+#tongket .col-1{order:2;flex:0 1 45%;background-color: var(--main-bg-color);}
+#tongket .col-2{order:3;flex:0 1 5%;background-color: var(--main-bg-color);color: magenta;}
+#tongket .col-3{order:4;flex:0 1 10%;background-color: var(--main-bg-color);color: red;}
+#tongket .col-4{order:5;flex:0 1 10%;background-color: var(--main-bg-color);color: blue;}
+
+#tongket>.tong>.col-0{order:1;flex:0 1 30%;background-color: var(--main-bg-color);}
+#tongket>.tong>.col-1{order:2;flex:0 1 45%;background-color: var(--main-bg-color);}
+#tongket>.tong>.col-2{order:3;flex:0 1 5%;background-color: var(--main-bg-color);color: magenta;}
+#tongket>.tong>.col-3{order:4;flex:0 1 20%;background-color: var(--main-bg-color);color: blue;}

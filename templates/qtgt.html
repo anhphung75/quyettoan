@@ -26,129 +26,148 @@
 
         </section>
         </br></br>
-    	<section id="tongket1">
+    	<section id="tongket">
     		<div class="row tieude">
-            	<div class="col-dvt"><b>Khoản mục chi phí</b></div>
-                <div class="col-dvt"><b>Cách tính</b></div>
-                <div class="col-dvt"><b>Ký hiệu</b></div>
-                <div class="col-dvt"><b>Ống cái</b></div>
-                <div class="col-dvt gia"><b>Ống ngánh</b></div>
+            	<div class="col-0"><b>Khoản mục chi phí</b></div>
+                <div class="col-1"><b>Cách tính</b></div>
+                <div class="col-2"><b>Ký hiệu</b></div>
+                <div class="col-3"><b>Ống cái</b></div>
+                <div class="col-4"><b>Ống ngánh</b></div>
             </div>
             <div class="row noidung">
-                <div class="col-chiphi">1.Chi phí vật tư (trước thuế )</div>
-                <div class="col-cachtinh">vl</div>
-                <div class="col-tien">{`c_Vl`}</div>
-                <div class="col-tien">{`n_Vl`}</div>
+                <div class="col-0">1.Chi phí vật tư (trước thuế )</div>
+                <div class="col-1">vl</div>
+                <div class="col-2">VL</div>
+                <div class="col-3">{`c_Vl`}</div>
+                <div class="col-4">{`n_Vl`}</div>
             </div>
             <div class="row noidung">
-                <div class="col-chiphi">2.Chi phí nhân công</div>
-                <div class="col-cachtinh">nc x {`heso.nc`}</div>
-                <div class="col-tien">{`c_Nc`}</div>
-                <div class="col-tien">{`n_Nc`}</div>
+                <div class="col-0">2.Chi phí nhân công</div>
+                <div class="col-1">nc x {`heso.nc`}</div>
+                <div class="col-2">NC</div>
+                <div class="col-3">{`c_Nc`}</div>
+                <div class="col-4">{`n_Nc`}</div>
             </div>
             <div class="row noidung">
-                <div class="col-chiphi">3.Chi phí máy thi công</div>
-                <div class="col-cachtinh">mtc x {`heso.mtc`}</div>
-                <div class="col-tien">{`c_Mtc`}</div>
-                <div class="col-tien">{`n_Mtc`}</div>
+                <div class="col-0">3.Chi phí máy thi công</div>
+                <div class="col-1">mtc x {`heso.mtc`}</div>
+                <div class="col-2">MTC</div>
+                <div class="col-3">{`c_Mtc`}</div>
+                <div class="col-4">{`n_Mtc`}</div>
             </div>
             <div class="row noidung">
-                <div class="col-chiphi"></div>
-                <div class="col-cachtinh">Cộng</div>
-                <div class="col-tien">{`c_A`}</div>
-                <div class="col-tien">{`n_A`}</div>
+                <div class="col-0"></div>
+                <div class="col-1">Cộng</div>
+                <div class="col-2">A</div>
+                <div class="col-3">{`c_A`}</div>
+                <div class="col-4">{`n_A`}</div>
             </div>
             <div class="row noidung">
-                <div class="col-chiphi">4.Trực tiếp phí khác</div>
-                <div class="col-cachtinh">A x {`heso.ttpk`}</div>
-                <div class="col-tien">{`c_Tt`}</div>
-                <div class="col-tien">{`n_Tt`}</div>
+                <div class="col-0">4.Trực tiếp phí khác</div>
+                <div class="col-1">A x {`heso.ttpk`}</div>
+                <div class="col-2">TT</div>
+                <div class="col-3">{`c_Tt`}</div>
+                <div class="col-4">{`n_Tt`}</div>
             </div>
             <div class="row noidung">
-                <div class="col-chiphi"></div>
-                <div class="col-cachtinh">Chi phí trực tiếp</div>
-                <div class="col-tien">{`c_T`}</div>
-                <div class="col-tien">{`n_T`}</div>
+                <div class="col-0"></div>
+                <div class="col-1">Chi phí trực tiếp</div>
+                <div class="col-2">T</div>
+                <div class="col-3">{`c_T`}</div>
+                <div class="col-4">{`n_T`}</div>
             </div>
             <div class="row noidung">
-                <div class="col-chiphi">5.Chi phí chung</div>
-                <div class="col-cachtinh">T x {`heso.cpchung`}</div>
-                <div class="col-tien">{`c_C`}</div>
-                <div class="col-tien">{`n_C`}</div>
+                <div class="col-0">5.Chi phí chung</div>
+                <div class="col-1">T x {`heso.cpchung`}</div>
+                <div class="col-2">C</div>
+                <div class="col-3">{`c_C`}</div>
+                <div class="col-4">{`n_C`}</div>
             </div>
             <div class="row noidung">
-                <div class="col-chiphi"></div>
-                <div class="col-cachtinh">Giá thành xây dựng</div>
-                <div class="col-tien">{`c_Z`}</div>
-                <div class="col-tien">{`n_Z`}</div>
+                <div class="col-0"></div>
+                <div class="col-1">Giá thành xây dựng</div>
+                <div class="col-2">Z</div>
+                <div class="col-3">{`c_Z`}</div>
+                <div class="col-4">{`n_Z`}</div>
             </div>
             <div class="row noidung">
-                <div class="col-chiphi">6.Thu nhập chịu thuế tính trước</div>
-                <div class="col-cachtinh">Z x {`heso.thunhaptt`}</div>
-                <div class="col-tien">{`c_Tl`}</div>
-                <div class="col-tien">{`n_Tl`}</div>
+                <div class="col-0">6.Thu nhập chịu thuế tính trước</div>
+                <div class="col-1">Z x {`heso.thunhaptt`}</div>
+                <div class="col-2">TL</div>
+                <div class="col-3">{`c_Tl`}</div>
+                <div class="col-4">{`n_Tl`}</div>
             </div>
             <div class="row noidung">
-                <div class="col-chiphi"></div>
-                <div class="col-cachtinh">Giá trị xây dựng trước thuế</div>
-                <div class="col-tien">{`c_G`}</div>
-                <div class="col-tien">{`n_G`}</div>
+                <div class="col-0"></div>
+                <div class="col-1">Giá trị xây dựng trước thuế</div>
+                <div class="col-2">G</div>
+                <div class="col-3">{`c_G`}</div>
+                <div class="col-4">{`n_G`}</div>
             </div>
             <div class="row noidung">
-                <div class="col-chiphi">7.Chi phí khảo sát, thiết kế</div>
-                <div class="col-cachtinh">G x {`heso.khaosat`} x {`heso.thietke`} </div>
-                <div class="col-tien">{`c_I`}</div>
-                <div class="col-tien">{`n_I`}</div>
+                <div class="col-0">7.Chi phí khảo sát, thiết kế</div>
+                <div class="col-1">G x {`heso.khaosat`} x {`heso.thietke`} </div>
+                <div class="col-2">I</div>
+                <div class="col-3">{`c_I`}</div>
+                <div class="col-4">{`n_I`}</div>
             </div>
             <div class="row noidung">
-                <div class="col-chiphi">8.Chi phí giám sát thi công</div>
-                <div class="col-cachtinh">G x {`heso.gstc`} </div>
-                <div class="col-tien">{`c_J`}</div>
-                <div class="col-tien">{`n_J`}</div>
+                <div class="col-0">8.Chi phí giám sát thi công</div>
+                <div class="col-1">G x {`heso.gstc`} </div>
+                <div class="col-2">J</div>
+                <div class="col-3">{`c_J`}</div>
+                <div class="col-4">{`n_J`}</div>
             </div>
             <div class="row noidung">
-                <div class="col-chiphi"></div>
-                <div class="col-cachtinh">Tổng giá trị đầu tư xây dựng trước thuế</div>
-                <div class="col-tien">{`c_La`}</div>
-                <div class="col-tien">{`n_La`}</div>
+                <div class="col-0"></div>
+                <div class="col-1">Tổng giá trị đầu tư xây dựng trước thuế</div>
+                <div class="col-2">L(A)</div>
+                <div class="col-3">{`c_La`}</div>
+                <div class="col-4">{`n_La`}</div>
             </div>
             <div class="row noidung">
-                <div class="col-chiphi">9.Thuế GTGT đầu ra</div>
-                <div class="col-cachtinh">L x 10%</div>
-                <div class="col-tien">{`c_Vat1`}</div>
-                <div class="col-tien">{`n_Vat1`}</div>
+                <div class="col-0">9.Thuế GTGT đầu ra</div>
+                <div class="col-1">L x 10%</div>
+                <div class="col-2">GTGT1</div>
+                <div class="col-3">{`c_Vat1`}</div>
+                <div class="col-4">{`n_Vat1`}</div>
             </div>
             <div class="row noidung">
-                <div class="col-chiphi"></div>
-                <div class="col-cachtinh">Tổng giá trị đầu tư xây dựng sau thuế</div>
-                <div class="col-tien">{`c_Gxd1`}</div>
-                <div class="col-tien">{`n_Gxd1`}</div>
+                <div class="col-0"></div>
+                <div class="col-1">Tổng giá trị đầu tư xây dựng sau thuế</div>
+                <div class="col-2">Gxd1</div>
+                <div class="col-3">{`c_Gxd1`}</div>
+                <div class="col-4">{`n_Gxd1`}</div>
             </div>
-    	</section>
-        </br></br>
-        <section id="tongket2">
+        </br>
+        <p>tai laap mat duong</p>
+        </br>
             <div class="row noidung">
-                <div class="col-chiphi"></div>
-                <div class="col-cachtinh">Cộng</div>
-                <div class="col-tien">{`c_Gxd2`}</div>
-                <div class="col-tien">{`n_Gxd2`}</div>
-            </div>
-            <div class="row noidung">
-                <div class="col-chiphi"></div>
-                <div class="col-cachtinh">Trong đó: giá trị trước thuế: Gxd2 x 100/110</div>
-                <div class="col-tien">{`c_Lb`}</div>
-                <div class="col-tien">{`n_Lb`}</div>
+                <div class="col-0"></div>
+                <div class="col-1">Cộng</div>
+                <div class="col-2">Gxd2</div>
+                <div class="col-3">{`c_Gxd2`}</div>
+                <div class="col-4">{`n_Gxd2`}</div>
             </div>
             <div class="row noidung">
-                <div class="col-chiphi"></div>
-                <div class="col-cachtinh">THuế GTGT 10%</div>
-                <div class="col-tien">{`c_Vat2`}</div>
-                <div class="col-tien">{`n_Vat2`}</div>
+                <div class="col-0"></div>
+                <div class="col-1">Trong đó: giá trị trước thuế: Gxd2 x 100/110</div>
+                <div class="col-2">L(B)</div>
+                <div class="col-3">{`c_Lb`}</div>
+                <div class="col-4">{`n_Lb`}</div>
             </div>
             <div class="row noidung">
-                <div class="col-chiphi"></div>
-                <div class="col-cachtinh">Tổng giá trị công trình: Gxd1 + Gxd2</div>
-                <div class="col-tien">{`Gxd`}</div>
+                <div class="col-0"></div>
+                <div class="col-1">THuế GTGT 10%</div>
+                <div class="col-2">GTGT2</div>
+                <div class="col-3">{`c_Vat2`}</div>
+                <div class="col-4">{`n_Vat2`}</div>
+            </div>
+            <div class="row tong">
+                <div class="col-0"></div>
+                <div class="col-1">Tổng giá trị công trình: Gxd1 + Gxd2</div>
+                <div class="col-2">Gxd</div>
+                <div class="col-3">{`Gxd`}</div>
             </div>
         </section>
         </br></br>
