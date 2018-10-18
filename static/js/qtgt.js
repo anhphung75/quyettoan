@@ -147,14 +147,6 @@ var qtgt = new Vue({
                 trigiamtc:0,trigianc:0,trigiamtc:0
             });
         },
-        updateItemQt33(item) {
-            let i=this.dataqt33[this.dataqt33.indexOf(item)];
-            let ma=i.machiphi.toString();
-            i.giavl=this.baogia[ma].giavl;
-            i.gianc=this.baogia[ma].gianc;
-            i.giamtc=this.baogia[ma].giamtc;
-            console.log('vl=' +i.giavl +' nc=' + i.gianc + ' mtc=' +i.giamtc);
-        },
         removeItemQt33(item) {
           this.dataqt33.splice(this.dataqt33.indexOf(item), 1);
         },
@@ -251,43 +243,55 @@ var qtgt = new Vue({
             let dataBaogia='{"DC201810121011":{"giavl":"100","gianc":"0","giamtc":"5000"},'+
             '"VT201810121011":{"giavl":"1000","gianc":"0","giamtc":"0"},'+
             '"TL201810121011":{"giavl":"100000","gianc":"0","giamtc":"0"},'+
-            '"1":{"giavl":"100","gianc":"0","giamtc":0},'+
-            '"2":{"giavl":"1000","gianc":"0","giamtc":"0"},'+
-            '"3":{"giavl":"100000","gianc":"0","giamtc":"0"}'+
+            '"1":{"giavl":"100","gianc":"100","giamtc":0},'+
+            '"2":{"giavl":"1000","gianc":"200","giamtc":"0"},'+
+            '"3":{"giavl":"100000","gianc":"3000","giamtc":"0"}'+
             '}';
             return JSON.parse(dataBaogia)
         },
         c_vl(){let total = 0;
-            this.dataqt31.forEach(function(s) {
+            for (let i = 0; i < this.dataqt31.length; i++) {
+                let s=this.dataqt31[i];
+                s.giavl=this.baogia[s.machiphi].giavl;
                 s.trigiavl = lamTronSo(s.soluong * s.giavl, 0);
                 total += parseInt(s.trigiavl);
-            });
-            this.dataqt32.forEach(function(s) {
+            };
+            for (let i = 0; i < this.dataqt32.length; i++) {
+                let s=this.dataqt32[i];
+                s.giavl=this.baogia[s.machiphi].giavl;
                 s.trigiavl = lamTronSo(s.soluong * s.giavl, 0);
                 total += parseInt(s.trigiavl);
-            });
+            };
             return total
         },
         c_nc(){let total = 0;
-            this.dataqt31.forEach(function(s) {
+            for (let i = 0; i < this.dataqt31.length; i++) {
+                let s=this.dataqt31[i];
+                s.gianc=this.baogia[s.machiphi].gianc;
                 s.trigianc = lamTronSo(s.soluong * s.gianc, 0);
                 total += parseInt(s.trigianc);
-            });
-            this.dataqt32.forEach(function(s) {
+            };
+            for (let i = 0; i < this.dataqt32.length; i++) {
+                let s=this.dataqt32[i];
+                s.gianc=this.baogia[s.machiphi].gianc;
                 s.trigianc = lamTronSo(s.soluong * s.gianc, 0);
                 total += parseInt(s.trigianc);
-            });
+            };
             return total
         },
         c_mtc(){let total = 0;
-            this.dataqt31.forEach(function(s) {
+            for (let i = 0; i < this.dataqt31.length; i++) {
+                let s=this.dataqt31[i];
+                s.giamtc=this.baogia[s.machiphi].giamtc;
                 s.trigiamtc = lamTronSo(s.soluong * s.giamtc, 0);
                 total += parseInt(s.trigiamtc);
-            });
-            this.dataqt32.forEach(function(s) {
+            };
+            for (let i = 0; i < this.dataqt32.length; i++) {
+                let s=this.dataqt32[i];
+                s.giamtc=this.baogia[s.machiphi].giamtc;
                 s.trigiamtc = lamTronSo(s.soluong * s.giamtc, 0);
                 total += parseInt(s.trigiamtc);
-            });
+            };
             return total
         },
         c_Vl(){return this.c_vl},
@@ -306,46 +310,60 @@ var qtgt = new Vue({
         c_Vat1(){return lamTronSo(this.c_La * 0.1,0)},
         c_Gxd1(){return (parseInt(this.c_La) + parseInt(this.c_Vat1))},
         c_Gxd2(){let total = 0;
-            this.dataqt35.forEach(function(s) {
+            for (let i = 0; i < this.dataqt35.length; i++) {
+                let s=this.dataqt35[i];
+                s.dongia=this.baogia[s.machiphi].giavl;
                 s.trigia_oc = lamTronSo(s.sl_oc * s.dongia, -3);
                 total += parseInt(s.trigia_oc);
-            });
+            };
             return total
         },
         c_Lb(){return lamTronSo(this.c_Gxd2 * 100 / 110,0)},
         c_Vat2(){return (parseInt(this.c_Gxd2) - parseInt(this.c_Lb))},
         n_vl(){let total = 0;
-            this.dataqt33.forEach(function(s) {
+            for (let i = 0; i < this.dataqt33.length; i++) {
+                let s=this.dataqt33[i];
+                s.giavl=this.baogia[s.machiphi].giavl;
+                console.log(typeof s.giavl + "giavl= " +s.giavl);
                 s.trigiavl = lamTronSo(s.soluong * s.giavl, 0);
                 total += parseInt(s.trigiavl);
-            });
-            this.dataqt34.forEach(function(s) {
-                //s.giavl=this.baogia[s.machiphi].giavl;
+            };
+            for (let i = 0; i < this.dataqt34.length; i++) {
+                let s=this.dataqt34[i];
+                s.giavl=this.baogia[s.machiphi].giavl;
                 s.trigiavl = lamTronSo(s.soluong * s.giavl, 0);
                 total += parseInt(s.trigiavl);
-            });
+            };
             return total
         },
         n_nc(){let total = 0;
-            this.dataqt33.forEach(function(s) {
+            for (let i = 0; i < this.dataqt33.length; i++) {
+                let s=this.dataqt33[i];
+                s.gianc=this.baogia[s.machiphi].gianc;
                 s.trigianc = lamTronSo(s.soluong * s.gianc, 0);
                 total += parseInt(s.trigianc);
-            });
-            this.dataqt34.forEach(function(s) {
+            };
+            for (let i = 0; i < this.dataqt34.length; i++) {
+                let s=this.dataqt34[i];
+                s.gianc=this.baogia[s.machiphi].gianc;
                 s.trigianc = lamTronSo(s.soluong * s.gianc, 0);
                 total += parseInt(s.trigianc);
-            });
+            };
             return total
         },
         n_mtc(){let total = 0;
-            this.dataqt33.forEach(function(s) {
+            for (let i = 0; i < this.dataqt33.length; i++) {
+                let s=this.dataqt33[i];
+                s.giamtc=this.baogia[s.machiphi].giamtc;
                 s.trigiamtc = lamTronSo(s.soluong * s.giamtc, 0);
                 total += parseInt(s.trigiamtc);
-            });
-            this.dataqt34.forEach(function(s) {
+            };
+            for (let i = 0; i < this.dataqt34.length; i++) {
+                let s=this.dataqt34[i];
+                s.giamtc=this.baogia[s.machiphi].giamtc;
                 s.trigiamtc = lamTronSo(s.soluong * s.giamtc, 0);
                 total += parseInt(s.trigiamtc);
-            });
+            };
             return total
         },
         n_Vl(){return this.n_vl},
@@ -364,10 +382,12 @@ var qtgt = new Vue({
         n_Vat1(){return lamTronSo(this.n_La * 0.1,0)},
         n_Gxd1(){return (parseInt(this.n_La) + parseInt(this.n_Vat1))},
         n_Gxd2(){let total = 0;
-            this.dataqt35.forEach(function(s) {
+            for (let i = 0; i < this.dataqt35.length; i++) {
+                let s=this.dataqt35[i];
+                s.dongia=this.baogia[s.machiphi].giavl;
                 s.trigia_on = lamTronSo(s.sl_on * s.dongia, -3);
                 total += parseInt(s.trigia_on);
-            });
+            };
             return total
         },
         n_Lb(){return lamTronSo(this.n_Gxd2 * 100 / 110,0)},
