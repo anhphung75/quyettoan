@@ -252,13 +252,14 @@ var qtgt = new Vue({
         c_vl(){let total = 0;
             for (let i = 0; i < this.dataqt31.length; i++) {
                 let s=this.dataqt31[i];
+                try{s.giavl=this.baogia[s.machiphi].giavl}catch(e){s.giavl=0};
                 s.giavl=this.baogia[s.machiphi].giavl;
                 s.trigiavl = lamTronSo(s.soluong * s.giavl, 0);
                 total += parseInt(s.trigiavl);
             };
             for (let i = 0; i < this.dataqt32.length; i++) {
                 let s=this.dataqt32[i];
-                s.giavl=this.baogia[s.machiphi].giavl;
+                try{s.giavl=this.baogia[s.machiphi].giavl}catch(e){s.giavl=0};
                 s.trigiavl = lamTronSo(s.soluong * s.giavl, 0);
                 total += parseInt(s.trigiavl);
             };
@@ -267,13 +268,13 @@ var qtgt = new Vue({
         c_nc(){let total = 0;
             for (let i = 0; i < this.dataqt31.length; i++) {
                 let s=this.dataqt31[i];
-                s.gianc=this.baogia[s.machiphi].gianc;
+                try{s.gianc=this.baogia[s.machiphi].gianc}catch(e){s.gianc=0};
                 s.trigianc = lamTronSo(s.soluong * s.gianc, 0);
                 total += parseInt(s.trigianc);
             };
             for (let i = 0; i < this.dataqt32.length; i++) {
                 let s=this.dataqt32[i];
-                s.gianc=this.baogia[s.machiphi].gianc;
+                try{s.gianc=this.baogia[s.machiphi].gianc}catch(e){s.gianc=0};
                 s.trigianc = lamTronSo(s.soluong * s.gianc, 0);
                 total += parseInt(s.trigianc);
             };
@@ -282,13 +283,13 @@ var qtgt = new Vue({
         c_mtc(){let total = 0;
             for (let i = 0; i < this.dataqt31.length; i++) {
                 let s=this.dataqt31[i];
-                s.giamtc=this.baogia[s.machiphi].giamtc;
+                try{s.giamtc=this.baogia[s.machiphi].giamtc}catch(e){s.giamtc=0};
                 s.trigiamtc = lamTronSo(s.soluong * s.giamtc, 0);
                 total += parseInt(s.trigiamtc);
             };
             for (let i = 0; i < this.dataqt32.length; i++) {
                 let s=this.dataqt32[i];
-                s.giamtc=this.baogia[s.machiphi].giamtc;
+                try{s.giamtc=this.baogia[s.machiphi].giamtc}catch(e){s.giamtc=0};
                 s.trigiamtc = lamTronSo(s.soluong * s.giamtc, 0);
                 total += parseInt(s.trigiamtc);
             };
@@ -323,14 +324,13 @@ var qtgt = new Vue({
         n_vl(){let total = 0;
             for (let i = 0; i < this.dataqt33.length; i++) {
                 let s=this.dataqt33[i];
-                s.giavl=this.baogia[s.machiphi].giavl;
-                console.log(typeof s.giavl + "giavl= " +s.giavl);
+                try{s.giavl=this.baogia[s.machiphi].giavl}catch(e){s.giavl=0};
                 s.trigiavl = lamTronSo(s.soluong * s.giavl, 0);
                 total += parseInt(s.trigiavl);
             };
             for (let i = 0; i < this.dataqt34.length; i++) {
                 let s=this.dataqt34[i];
-                s.giavl=this.baogia[s.machiphi].giavl;
+                try{s.giavl=this.baogia[s.machiphi].giavl}catch(e){s.giavl=0};
                 s.trigiavl = lamTronSo(s.soluong * s.giavl, 0);
                 total += parseInt(s.trigiavl);
             };
@@ -339,13 +339,13 @@ var qtgt = new Vue({
         n_nc(){let total = 0;
             for (let i = 0; i < this.dataqt33.length; i++) {
                 let s=this.dataqt33[i];
-                s.gianc=this.baogia[s.machiphi].gianc;
+                try{s.gianc=this.baogia[s.machiphi].gianc}catch(e){s.gianc=0};
                 s.trigianc = lamTronSo(s.soluong * s.gianc, 0);
                 total += parseInt(s.trigianc);
             };
             for (let i = 0; i < this.dataqt34.length; i++) {
                 let s=this.dataqt34[i];
-                s.gianc=this.baogia[s.machiphi].gianc;
+                try{s.gianc=this.baogia[s.machiphi].gianc}catch(e){s.gianc=0};
                 s.trigianc = lamTronSo(s.soluong * s.gianc, 0);
                 total += parseInt(s.trigianc);
             };
@@ -354,13 +354,13 @@ var qtgt = new Vue({
         n_mtc(){let total = 0;
             for (let i = 0; i < this.dataqt33.length; i++) {
                 let s=this.dataqt33[i];
-                s.giamtc=this.baogia[s.machiphi].giamtc;
+                try{s.giamtc=this.baogia[s.machiphi].giamtc}catch(e){s.giamtc=0};
                 s.trigiamtc = lamTronSo(s.soluong * s.giamtc, 0);
                 total += parseInt(s.trigiamtc);
             };
             for (let i = 0; i < this.dataqt34.length; i++) {
                 let s=this.dataqt34[i];
-                s.giamtc=this.baogia[s.machiphi].giamtc;
+                try{s.giamtc=this.baogia[s.machiphi].giamtc}catch(e){s.giamtc=0};
                 s.trigiamtc = lamTronSo(s.soluong * s.giamtc, 0);
                 total += parseInt(s.trigiamtc);
             };
@@ -384,7 +384,7 @@ var qtgt = new Vue({
         n_Gxd2(){let total = 0;
             for (let i = 0; i < this.dataqt35.length; i++) {
                 let s=this.dataqt35[i];
-                s.dongia=this.baogia[s.machiphi].giavl;
+                try{s.dongia=this.baogia[s.machiphi].giamvl}catch(e){s.dongia=0};
                 s.trigia_on = lamTronSo(s.sl_on * s.dongia, -3);
                 total += parseInt(s.trigia_on);
             };
