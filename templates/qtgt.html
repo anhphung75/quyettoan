@@ -139,9 +139,65 @@
                 <div class="col-3">{`c_Gxd1`}</div>
                 <div class="col-4">{`n_Gxd1`}</div>
             </div>
-        </br>
-        <p>tai laap mat duong</p>
-        </br>
+            <hr color="black" />
+            <section id="qt35">
+                <div class="row tieude">
+                    <div class="col-tt">TT</div>
+                    <div class="col-chiphi">Tái lập mặt đường</div>
+                    <div class="col-dvt">Đvt</div>
+                    <div class="col-sl1">Sl cái</div>
+                    <div class="col-sl2">Sl ngánh</div>
+                    <div class="col-gia">Đơn giá</div>
+                    <div class="col-tien1">Tiền cái</div>
+                    <div class="col-tien2">Tiền ngánh</div>
+                </div>
+                <div class="row noidung" v-for="(i, k) in data5" v-key="k" draggable="true" 
+                    @dragstart="drag5Start(k, $event)" 
+                    @dragover.prevent 
+                    @dragend="dragEnd" 
+                    @drop="drag5Finish(k, $event)"
+                >
+                    <div class="col-tt">
+                        <button type="button" class="btn btn-outline-dark" @click="removeI5(i)">
+                            <i class="fa fa-trash"></i>
+                        </button>
+                         {`k+1`}
+                    </div>
+                    <div class="col-chiphi">                   
+                        <input type="text" v-model="i.machiphi" :id="'cp5-' + k"
+                            
+                            
+                        >
+                    </div>
+                    <div class="col-dvt">{`i.dvt`}</div>
+                    <div class="col-sl1">
+                        <input type="text" v-model.number="i.sl_oc" :id="'sl51-' + k"
+                            @keyup.enter="down2e('sl51-',k)"
+                            @keyup.ctrl.down="down2e('sl51-',k)"
+                            @keyup.ctrl.left="move2e('cp5-',k)"
+                            @keyup.ctrl.right="move2e('sl52-',k)"
+                        >
+                    </div>
+                    <div class="col-sl2">
+                        <input type="text" v-model.number="i.sl_on" :id="'sl52-' + k"
+                            @keyup.enter="down2e('sl52-',k)"
+                            @keyup.ctrl.down="down2e('sl52-',k)"
+                            @keyup.ctrl.left="move2e('sl51-',k)"
+                            @keyup.ctrl.right="move2e('cp5-',k)"
+                        >
+                    </div>
+                    <div class="col-gia">{`i.dongia | currency`}</div>
+                    <div class="col-tien1">{`i.tien_oc | currency`}</div>
+                    <div class="col-tien2">{`i.tien_on | currency`}</div>
+                </div>
+                <div class="row noidung">
+                    <div class="col-tt">
+                        <button type="button" class="btn btn-outline-dark" @click="addI5">
+                            <i class="fa fa-plus-square"></i>
+                        </button>
+                    </div>
+                </div>
+            </section>
             <div class="row noidung">
                 <div class="col-0"></div>
                 <div class="col-1">Cộng</div>

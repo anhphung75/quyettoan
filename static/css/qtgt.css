@@ -100,6 +100,15 @@ input{width: 100%;}
 	text-transform: capitalize;
 }
 
+#qt35 .col-tt{order:1;flex:0 1 5%;}
+#qt35 .col-chiphi{order:2;flex:0 1 41%;}
+#qt35 .col-dvt{order:3;flex:0 1 5%;}
+#qt35 .col-sl1{order:4;flex:0 1 9%;}
+#qt35 .col-sl2{order:5;flex:0 1 9%;}
+#qt35 .col-gia{order:6;flex:0 1 7%;}
+#qt35 .col-tien1{order:7;flex:0 1 12%;color: red;}
+#qt35 .col-tien2{order:8;flex:0 1 12%;color: blue;}
+
 #tongket .col-0{order:1;flex:0 1 30%;background-color: var(--main-bg-color);}
 #tongket .col-1{order:2;flex:0 1 45%;background-color: var(--main-bg-color);}
 #tongket .col-2{order:3;flex:0 1 5%;background-color: var(--main-bg-color);color: magenta;}
