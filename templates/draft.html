@@ -14,6 +14,13 @@
 
 <body>
     <div id="draft">
+        <p>chi phi 1</p>
+        <chiphi></chiphi>
+        </br></br>
+        <p>chi phi 2</p>
+        <chiphi></chiphi>
+        </br>
+        <p>chi phi 3</p>
         <chiphi></chiphi>
     </div>
     <!-- script block -->
@@ -21,7 +28,7 @@
     <script src="https://unpkg.com/vue"></script>
     
     <script type="text/javascript">
-        var cpTailap={
+        var chiphi={
             "tl1":{"mota":"Gạch terrazo","dvt":"m2"},
             "tl2":{"mota":"Đá xanh","dvt":"m2"},
             "tl3":{"mota":"Bê tông xi măng","dvt":"m2"},
@@ -35,12 +42,12 @@
         Vue.component('chiphi',{
             props:['item'],
             data(){return{
-                isOpen: true,
+                isOpen: false,
                 smota: '',
                 arrowCounter: 0
             }},
             computed:{
-                danhsach(){return Object.value(cpTailap).sort()},
+                danhsach(){return chiphi},
                 dsChiphi(){
                     if(!this.smota){return this.danhsach}
                     let ds={};
@@ -52,11 +59,14 @@
                 }
             },
             methods:{
-                onChange(){},
+                onChange(){this.isOpen = true;},
                 onArrowDown(){},
                 onArrowUp(){},
                 onEnter(){},
-                setResult(k){}
+                setChiphi(k){
+                    this.smota = this.danhsach[k].mota;
+                    this.isOpen = false;
+                }
             },
             template:
                 `<div>
@@ -69,7 +79,10 @@
                     />
                     <ol v-show="isOpen">
                         <li v-for="(v,k,i) in dsChiphi"
-                            @click="setResult(k)" 
+                            @click="setChiphi(k)"
+                            @keyup.enter="setChiphi(k)"
+                            @mouseover=""
+                            @mouseout=""
                             :class="{'is-active': i===arrowCounter}"
                         >
                             {{v.mota}}
