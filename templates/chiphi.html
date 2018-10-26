@@ -13,16 +13,19 @@
 </head>
 
 <body>
-    <div id="datachiphi">
-        <input v-model="chiphiid"></input>
-        <select v-model="chiphiid">
-            <option value="" selected="selected">Choose ...</option>
-            <option v-for="chiphi in bangchiphi" :value="chiphi.chiphiid">
-                {`chiphi.diengiai`} - {`chiphi.dvt`}
-            </option>
-        </select>
+    <div id="qtgt">
+        <input type="search" v-model="timcp"
+                @click="showDropdown = true"
+                @blur="showDropdown = false"
+        />
+        <ul class="ds-chiphi" v-if="showDropdown">
+            <li class="ds-chitiet" v-for="(i1, k1) in cpTailap | filterBy timcp" v-key="k1"
+                @click="data5selected(k1)" 
+                v-bind:class="{'ds-chitiet--selected': $index == selectedIndex}"
+            >{`i1.mota`}-{`i1.dvt`}[{`k1`}]</li>
+        </ul>
         <div>
-            chiphiid selected= {`chiphiid`}
+            chiphiid selected= {`timcp`}
         </div>
     </div>
 
@@ -30,7 +33,8 @@
     <!-- script block -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
-    <script src="../static/js/chiphiSelect.js"></script>
+    <script src="https://unpkg.com/vue-select@latest"></script>
+    <script src="../static/js/qtgt.js"></script>
 </body>
 
 </html>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Phòng kế hoạch</title>
+    <!-- Required Stylesheets
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/qtgt.css">
+</head>
+
+<body>
+    <div id="draft">
+        <chiphi></chiphi>
+    </div>
+    <!-- script block -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    
+    <script type="text/javascript">
+        var cpTailap={
+            "tl1":{"mota":"Gạch terrazo","dvt":"m2"},
+            "tl2":{"mota":"Đá xanh","dvt":"m2"},
+            "tl3":{"mota":"Bê tông xi măng","dvt":"m2"},
+            "tl4":{"mota":"Nhựa dày 10cm","dvt":"m2"},
+            "tl5":{"mota":"Nhựa dày 5cm","dvt":"m2"},
+            "tl6":{"mota":"Lề xi măng","dvt":"m2"},
+            "tl7":{"mota":"Gạch hình sin","dvt":"m2"},
+            "tl8":{"mota":"Đất đỏ","dvt":"m2"},
+            "tl9":{"mota":"Gạch khía","dvt":"m2"}
+        };
+        Vue.component('chiphi',{
+            props:['item'],
+            data(){return{
+                isOpen: true,
+                smota: '',
+                arrowCounter: 0
+            }},
+            computed:{
+                danhsach(){return Object.value(cpTailap).sort()},
+                dsChiphi(){
+                    if(!this.smota){return this.danhsach}
+                    let ds={};
+                    this.smota=this.smota.trim().toLowerCase();
+                    for (k in this.danhsach){
+                        if (this.danhsach[k].mota.toLowerCase().indexOf(this.smota) !== -1){ds[k]=this.danhsach[k]};
+                    };
+                    return ds;
+                }
+            },
+            methods:{
+                onChange(){},
+                onArrowDown(){},
+                onArrowUp(){},
+                onEnter(){},
+                setResult(k){}
+            },
+            template:
+                `<div>
+                    <input type="text" v-model="smota"
+                        @click="isOpen=true"
+                        @input="onChange"
+                        @keyup.down="onArrowDown"
+                        @keyup.up="onArrowUp"
+                        @keyup.enter="onEnter"
+                    />
+                    <ol v-show="isOpen">
+                        <li v-for="(v,k,i) in dsChiphi"
+                            @click="setResult(k)" 
+                            :class="{'is-active': i===arrowCounter}"
+                        >
+                            {{v.mota}}
+                        </li>
+                    </ol>
+                </div>`
+
+        });
+        var draft = new Vue({el: '#draft'});
+    </script>
+    <!--
+        methods:{
+                onChange(){
+                  // Let's warn the parent that a change was made
+                    this.$emit("input", this.smota);
+                    this.filterResults();
+                    this.isOpen = true;
+                },
+                setResult(result){
+                  this.smota = result;
+                  this.isOpen = false;
+                },
+                onArrowDown(evt) {
+                  if (this.arrowCounter < this.dsChiphi.length) {
+                    this.arrowCounter = this.arrowCounter + 1;
+                  }
+                },
+                onArrowUp() {
+                  if (this.arrowCounter > 0) {
+                    this.arrowCounter = this.arrowCounter - 1;
+                  }
+                },
+                onEnter() {
+                  this.smota = this.dsChiphi[this.arrowCounter];
+                  this.isOpen = false;
+                  this.arrowCounter = -1;
+                },
+                handleClickOutside(evt) {
+                  if (!this.$el.contains(evt.target)) {
+                    this.isOpen = false;
+                    this.arrowCounter = -1;
+                  }
+                }
+            },
+            watch:{
+                item: function(val, oldValue) {
+                  // actually compare them
+                    if (val.length !== oldValue.length){this.smota = val}
+                }
+            },
+            mounted(){document.addEventListener("click", this.handleClickOutside)},
+            destroyed(){document.removeEventListener("click", this.handleClickOutside)},
+    -->
+</body>
+
+</html>

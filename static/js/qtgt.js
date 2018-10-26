@@ -29,7 +29,7 @@ Vue.filter('currency',function(t){
 var chiphi={
     "DC201810121011": //PL + yyyymmddhhmm
         {machiphi:1,
-        diengiai:"Cắt mặt nhựa và BTXM",
+        mota:"Cắt mặt nhựa và BTXM",
         dvt:"mét",
         masovattu:"",
         baocao_qtvt:"",
@@ -40,7 +40,7 @@ var chiphi={
         dm_cat_oc:0},
     "VT201810121011": //PL + yyyymmddhhmm
         {machiphi:2,
-        diengiai:"Đai khởi thủy 100 x 3/4'",
+        mota:"Đai khởi thủy 100 x 3/4'",
         dvt:"cái",
         masovattu:"",
         baocao_qtvt:"",
@@ -51,7 +51,7 @@ var chiphi={
         dm_cat_oc:0},
     "TL201810121011": //PL + yyyymmddhhmm
         {machiphi:3,
-        diengiai:"Bê tông xi măng",
+        mota:"Bê tông xi măng",
         dvt:"m2",
         masovattu:"",
         baocao_qtvt:"",
@@ -67,62 +67,91 @@ var chiphi={
 var plqt=["GMMP","GMDT","TLMP","TLDT"];
 var dvtc=["TCTB","QLMLQ2","QLMLQ9","QLMLTD"];
 
-var qt31=[
-    {machiphi: 1,soluong: 4,
-        diengiai: 'Van bi cóc đồng 1" x 32',dvt: 'cái',
-        giavl: 2000,gianc: 220,giamtc: 10,
-        tienmtc: 1,tiennc: 0,tienmtc: 0},
-    {machiphi: 2,soluong: 2,
-        diengiai: 'Van góc liên hợp đồng 1" x 32 them cho dai ne Van góc liên hợp đồng 1" x 32',dvt: 'cái',
-        giavl: 2000,gianc: 300,giamtc: 0,
-        tienmtc: 1,tiennc: 0,tienmtc: 0},
-    {machiphi: 3,soluong: 4,
-        diengiai: 'Khâu nối ĐHN 15 ly',dvt: 'cái',
-        giavl: 2000,gianc: 500,giamtc: 0,
-        tienmtc: 1,tiennc: 0,tienmtc: 0}
-];
-var qt32=[
-    {machiphi: 1,soluong: 4,
-        diengiai: 'Van bi cóc đồng 1" x 32',dvt: 'cái',
-        giavl: 2000,gianc: 220,giamtc: 10,
-        tienmtc: 1,tiennc: 0,tienmtc: 0},
-    {machiphi: 2,soluong: 2,
-        diengiai: 'Van góc liên hợp đồng 1" x 32 them cho dai ne Van góc liên hợp đồng 1" x 32',dvt: 'cái',
-        giavl: 2000,gianc: 300,giamtc: 0,
-        tienmtc: 1,tiennc: 0,tienmtc: 0},
-    {machiphi: 3,soluong: 4,
-        diengiai: 'Khâu nối ĐHN 15 ly',dvt: 'cái',
-        giavl: 2000,gianc: 500,giamtc: 0,
-        tienmtc: 1,tiennc: 0,tienmtc: 0}
-];
-var qt33=[
-    {machiphi: '1',soluong: 4,
-        diengiai: 'Van bi cóc đồng 1" x 32',dvt: 'cái',
-        giavl: 2000,gianc: 220,giamtc: 10,
-        tienmtc: 1,tiennc: 0,tienmtc: 0},
-    {machiphi: '2',soluong: 2,
-        diengiai: 'Van góc liên hợp đồng 1" x 32 them cho dai ne Van góc liên hợp đồng 1" x 32',dvt: 'cái',
-        giavl: 2000,gianc: 300,giamtc: 0,
-        tienmtc: 1,tiennc: 0,tienmtc: 0},
-    {machiphi: '3',soluong: 4,
-        diengiai: 'Khâu nối ĐHN 15 ly',dvt: 'cái',
-        giavl: 2000,gianc: 500,giamtc: 0,
-        tienmtc: 1,tiennc: 0,tienmtc: 0}
-];
-var qt34=[
-    {machiphi: 1,soluong: 4,
-        diengiai: 'Van bi cóc đồng 1" x 32',dvt: 'cái',
-        giavl: 2000,gianc: 220,giamtc: 10,
-        tienmtc: 1,tiennc: 0,tienmtc: 0},
-    {machiphi: 2,soluong: 2,
-        diengiai: 'Van góc liên hợp đồng 1" x 32 them cho dai ne Van góc liên hợp đồng 1" x 32',dvt: 'cái',
-        giavl: 2000,gianc: 300,giamtc: 0,
-        tienmtc: 1,tiennc: 0,tienmtc: 0},
-    {machiphi: 3,soluong: 4,
-        diengiai: 'Khâu nối ĐHN 15 ly',dvt: 'cái',
-        giavl: 2000,gianc: 500,giamtc: 0,
-        tienmtc: 1,tiennc: 0,tienmtc: 0}
-];
+var qt31=[];
+var qt32=[];
+var qt33=[];
+var qt34=[];
+var qt35=[];
+/* component */
+Vue.component('chiphi',{
+    props:['item'],
+    data(){return{
+        isOpen: false,
+        results: [],
+        search: "",
+        isLoading: false,
+        arrowCounter: 0
+    }},
+    methods:{
+        onChange() {
+          // Let's warn the parent that a change was made
+            this.$emit("input", this.search);
+            this.filterResults();
+            this.isOpen = true;
+        },
+        filterResults() {
+          // first uncapitalize all the things
+            this.results = this.items.filter(item => {
+            return item.toLowerCase().indexOf(this.search.toLowerCase()) > -1;
+            });
+        },
+        setResult(result) {
+          this.search = result;
+          this.isOpen = false;
+        },
+        onArrowDown(evt) {
+          if (this.arrowCounter < this.results.length) {
+            this.arrowCounter = this.arrowCounter + 1;
+          }
+        },
+        onArrowUp() {
+          if (this.arrowCounter > 0) {
+            this.arrowCounter = this.arrowCounter - 1;
+          }
+        },
+        onEnter() {
+          this.search = this.results[this.arrowCounter];
+          this.isOpen = false;
+          this.arrowCounter = -1;
+        },
+        handleClickOutside(evt) {
+          if (!this.$el.contains(evt.target)) {
+            this.isOpen = false;
+            this.arrowCounter = -1;
+          }
+        }
+      },
+    watch:{
+        item: function(val, oldValue) {
+          // actually compare them
+            if (val.length !== oldValue.length){
+                this.results = val;
+                this.isLoading = false;
+            }
+        }
+    },
+    mounted(){document.addEventListener("click", this.handleClickOutside);},
+    destroyed(){document.removeEventListener("click", this.handleClickOutside);}
+    },
+    template:` 
+        <div>
+            <input type="text" v-model="search"
+                @input="onChange"
+                @keyup.down="onArrowDown"
+                @keyup.up="onArrowUp"
+                @keyup.enter="onEnter"
+            />
+            <ol id="autocomplete-results" v-show="isOpen">
+                <li v-for="(result, i) in results" 
+                    :key="i" @click="setResult(result)" 
+                    :class="{'is-active': i === arrowCounter }"
+                >
+                    {{ result }}
+                </li>
+            </ol>
+        </div>`;
+
+});
 
 /* dữ liệu quyết toán */
 var qtgt = new Vue({
@@ -234,7 +263,35 @@ var qtgt = new Vue({
         },
         up2e(e,k){setFocus(e+(parseInt(k)-1))},
         down2e(e,k){setFocus(e+(parseInt(k)+1))},
-        move2e(e,k){setFocus(e+parseInt(k))}
+        move2e(e,k){setFocus(e+parseInt(k))},
+        /* combo box*/
+        data5selected(index){
+            this.showDropdown = false;
+            console.log('machiphi=' +index)
+        },
+        handleBackspace(){this.showDropdown = true},
+        select(index){
+            this.showDropdown = false;
+            this.starttime = this.filteredTimes[index]
+        },
+        selectNext(){
+            if (this.showDropdown){
+                if (this.selectedIndex < this.filteredTimes.length - 1) {
+                    this.selectedIndex++;
+                } else {
+                    this.selectedIndex = 0;
+                }        
+            } else {
+                this.showDropdown = true;
+            }
+        },
+        selectPrev(){
+            if (this.selectedIndex > 0) {
+                this.selectedIndex--;
+            } else {
+                this.selectedIndex = this.filteredTimes.length - 1;
+            }
+        }
     },
     computed:{
         isDragging(){
@@ -245,20 +302,6 @@ var qtgt = new Vue({
             let dataHeso='{"nc":"1","mtc":"1","ttpk":"0","cpchung":"0.05",'
             + '"thunhaptt":"0.055","khaosat":"0.0236","thietke":"1.2","gstc":"0.02566"}';
             return JSON.parse(dataHeso)
-        },
-        chiphi(){
-            let dataChiphi='{'+
-            '"dc1":{"diengiai":"gạch terrazo","dvt":"m2"},'+
-            '"dc2":{"diengiai":"Nhựa dày 10cm","dvt":"m2"},'+
-            '"dc3":{"diengiai":"Bê tông xi măng","dvt":"m2"},'+
-            '"vl1":{"diengiai":"gạch terrazo","dvt":"m2"},'+
-            '"vl2":{"diengiai":"Nhựa dày 10cm","dvt":"m2"},'+
-            '"vl3":{"diengiai":"Bê tông xi măng","dvt":"m2"},'+
-            '"tl1":{"diengiai":"gạch terrazo","dvt":"m2"},'+
-            '"tl2":{"diengiai":"Nhựa dày 10cm","dvt":"m2"},'+
-            '"tl3":{"diengiai":"Bê tông xi măng","dvt":"m2"}'+
-            '}';
-            return JSON.parse(dataChiphi)
         },
         baogia(){
             let dataBaogia='{'+
@@ -277,14 +320,20 @@ var qtgt = new Vue({
         n_vl(){let total = 0;
             for (let i = 0; i < this.data3.length; i++) {
                 let s=this.data3[i];
-                try{s.dvt=this.chiphi[s.machiphi].dvt}catch(e){s.dvt=''};
+                try{
+                    s.mota=this.cpDaocat[s.machiphi].mota,
+                    s.dvt=this.cpDaocat[s.machiphi].dvt
+                }catch(e){s.mota='',s.dvt=''};
                 try{s.giavl=this.baogia[s.machiphi].giavl}catch(e){s.giavl=0};
                 s.tienvl = lamTronSo(s.soluong * s.giavl, 0);
                 total += parseInt(s.tienvl);
             };
             for (let i = 0; i < this.data4.length; i++) {
                 let s=this.data4[i];
-                try{s.dvt=this.chiphi[s.machiphi].dvt}catch(e){s.dvt=''};
+                try{
+                    s.mota=this.cpVattu[s.machiphi].mota,
+                    s.dvt=this.cpVattu[s.machiphi].dvt
+                }catch(e){s.mota='',s.dvt=''};
                 try{s.giavl=this.baogia[s.machiphi].giavl}catch(e){s.giavl=0};
                 s.tienvl = lamTronSo(s.soluong * s.giavl, 0);
                 total += parseInt(s.tienvl);
@@ -339,7 +388,10 @@ var qtgt = new Vue({
         n_Gxd2(){let total = 0;
             for (let i = 0; i < this.data5.length; i++) {
                 let s=this.data5[i];
-                try{s.dvt=this.chiphi[s.machiphi].dvt}catch(e){s.dvt=''};
+                try{
+                    s.mota=this.cpTailap[s.machiphi].mota,
+                    s.dvt=this.cpTailap[s.machiphi].dvt
+                }catch(e){s.mota='',s.dvt=''};
                 try{s.dongia=this.baogia[s.machiphi].giavl}catch(e){s.giavl=0};
                 s.tien_on = lamTronSo(s.sl_on * s.dongia, -3);
                 total += parseInt(s.tien_on);
@@ -352,14 +404,20 @@ var qtgt = new Vue({
         c_vl(){let total = 0;
             for (let i = 0; i < this.data1.length; i++) {
                 let s=this.data1[i];
-                try{s.dvt=this.chiphi[s.machiphi].dvt}catch(e){s.dvt=''};
+                try{
+                    s.mota=this.cpDaocat[s.machiphi].mota,
+                    s.dvt=this.cpDaocat[s.machiphi].dvt
+                }catch(e){s.mota='',s.dvt=''};
                 try{s.giavl=this.baogia[s.machiphi].giavl}catch(e){s.giavl=0};
                 s.tienvl = lamTronSo(s.soluong * s.giavl, 0);
                 total += parseInt(s.tienvl);
             };
             for (let i = 0; i < this.data2.length; i++) {
                 let s=this.data2[i];
-                try{s.dvt=this.chiphi[s.machiphi].dvt}catch(e){s.dvt=''};
+                try{
+                    s.mota=this.cpVattu[s.machiphi].mota,
+                    s.dvt=this.cpVattu[s.machiphi].dvt
+                }catch(e){s.mota='',s.dvt=''};
                 try{s.giavl=this.baogia[s.machiphi].giavl}catch(e){s.giavl=0};
                 s.tienvl = lamTronSo(s.soluong * s.giavl, 0);
                 total += parseInt(s.tienvl);
@@ -424,14 +482,46 @@ var qtgt = new Vue({
         /* phần tổng kết */
         tcA(){return (parseInt(this.n_Gxd1) + parseInt(this.c_Gxd1))},
         tcB(){return (parseInt(this.n_Gxd2) + parseInt(this.c_Gxd2))},
-        Gxd(){return (parseInt(this.tcA) + parseInt(this.tcB))}
+        Gxd(){return (parseInt(this.tcA) + parseInt(this.tcB))},
+        /* search */
+        dsTailap(){
+            let ds= new chiphi;
+            let sKey=this.searchKey;
+            for (let i = 0; i < Object.keys(ds).length; i++) {
+                if (ds[i].mota.toLowerCase().indexOf(sKey) == -1){delete ds[i]};
+            };
+            return ds
+        }
     },
     data() {return{
         errors: [],
         dragging: -1,
+        timcp:'',
+        showDropdown: false,
+        selectedIndex: 0,
         maheso:7,
         mabaogia:20181015,
         maqt:"2018GMMP001001",
+        options: [      
+            {id:"tl1",label:"gạch terrazo",dvt:"m2"},
+            {id:"tl2",label:"Nhựa dày 10cm",dvt:"m2"},
+            {id:"tl3",label:"Bê tông xi măng",dvt:"m2"},
+        ],
+        cpDaocat:{
+            "dc1":{"mota":"gạch terrazo","dvt":"m2"},
+            "dc2":{"mota":"Nhựa dày 10cm","dvt":"m2"},
+            "dc3":{"mota":"Bê tông xi măng","dvt":"m2"}
+        },
+        cpVattu:{
+            "vl1":{"mota":"gạch terrazo","dvt":"m2"},
+            "vl2":{"mota":"Nhựa dày 10cm","dvt":"m2"},
+            "vl3":{"mota":"Bê tông xi măng","dvt":"m2"}
+        },
+        cpTailap:{
+            "tl1":{"mota":"gạch terrazo","dvt":"m2"},
+            "tl2":{"mota":"Nhựa dày 10cm","dvt":"m2"},
+            "tl3":{"mota":"Bê tông xi măng","dvt":"m2"}
+        },
         data1:[
             {machiphi:'dc1',soluong:1},
             {machiphi:'dc2',soluong:2},
