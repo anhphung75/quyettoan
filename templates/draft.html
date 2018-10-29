@@ -15,59 +15,104 @@
 <body>
     <div id="draft">
         <p>chi phi 1</p>
-        <chiphi></chiphi>
+        <chiphi pl="dc" i="1"></chiphi>
         </br></br>
         <p>chi phi 2</p>
-        <chiphi></chiphi>
+        <chiphi pl="vt" i="10"></chiphi>
         </br>
         <p>chi phi 3</p>
-        <chiphi></chiphi>
+        <chiphi pl="tl" i="100"></chiphi>
     </div>
     <!-- script block -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
     
     <script type="text/javascript">
-        var chiphi={
-            "tl1":{"mota":"Gạch terrazo","dvt":"m2"},
-            "tl2":{"mota":"Đá xanh","dvt":"m2"},
-            "tl3":{"mota":"Bê tông xi măng","dvt":"m2"},
-            "tl4":{"mota":"Nhựa dày 10cm","dvt":"m2"},
-            "tl5":{"mota":"Nhựa dày 5cm","dvt":"m2"},
-            "tl6":{"mota":"Lề xi măng","dvt":"m2"},
-            "tl7":{"mota":"Gạch hình sin","dvt":"m2"},
-            "tl8":{"mota":"Đất đỏ","dvt":"m2"},
-            "tl9":{"mota":"Gạch khía","dvt":"m2"}
-        };
+        var cp1=[
+            {"machiphi":"dc1","mota":"- Cắt mặt nhựa và BTXM","dvt":"mét"},
+            {"machiphi":"dc2","mota":"- Đào bốc mặt đường nhựa","dvt":"m3"},
+            {"machiphi":"dc3","mota":"- Đào bốc mặt đường BTXM","dvt":"m3"},
+            {"machiphi":"dc4","mota":"- Đào phui cấp 3 (không taluy-KV TP)","dvt":"m3"},
+            {"machiphi":"dc5","mota":"- Lấp lại phui đã đào k=0,95","dvt":"m3"},
+            {"machiphi":"dc6","mota":"- Đổ đá 0-4 dày 10cm","dvt":"m3"},
+            {"machiphi":"dc7","mota":"- Trải cát lót phui đào","dvt":"m3"},
+            {"machiphi":"dc8","mota":"- Dọn đất thừa","dvt":"m3"},
+            {"machiphi":"dc9","mota":"Thử áp lực ống ngánh","dvt":"mét"}
+        ];
+        var cp2=[
+            {"machiphi":"vt1","mota":'Đai khởi thủy 100 x 3/4"',"dvt":"bộ"},
+            {"machiphi":"vt2","mota":'Van bi cóc 3/4" x 25 (VN)',"dvt":"cái"},
+            {"machiphi":"vt3","mota":'Van góc liên hợp 3/4" x 25 (VN)',"dvt":"cái"},
+            {"machiphi":"vt4","mota":"ĐHN 15 ly (cấp C) KENT","dvt":"cái"},
+            {"machiphi":"vt5","mota":"Van góc đồng DN 15","dvt":"cái"},
+            {"machiphi":"vt6","mota":"Ống nhựa 25 HDPE","dvt":"mét"},
+            {"machiphi":"vt7","mota":"Cao su non","dvt":"cuộn"},
+            {"machiphi":"vt8","mota":"Joint khâu nối ĐHN 15 ly","dvt":"cái"}
+        ];
+        var cp3=[
+            {"machiphi":"tl1","mota":"Gạch terrazo","dvt":"m2"},
+            {"machiphi":"tl2","mota":"Đá xanh","dvt":"m2"},
+            {"machiphi":"tl3","mota":"Bê tông xi măng","dvt":"m2"},
+            {"machiphi":"tl4","mota":"Nhựa dày 10cm","dvt":"m2"},
+            {"machiphi":"tl5","mota":"Nhựa dày 5cm","dvt":"m2"},
+            {"machiphi":"tl6","mota":"Lề xi măng","dvt":"m2"},
+            {"machiphi":"tl7","mota":"Gạch hình sin","dvt":"m2"},
+            {"machiphi":"tl8","mota":"Đất đỏ","dvt":"m2"},
+            {"machiphi":"tl9","mota":"Gạch khía","dvt":"m2"}
+        ];
         Vue.component('chiphi',{
-            props:['item'],
+            props:['pl','i'],
             data(){return{
                 isOpen: false,
                 smota: '',
-                arrowCounter: 0
+                curIndex: 0
             }},
             computed:{
-                danhsach(){return chiphi},
+                danhsach(){
+                    switch(this.pl.toLowerCase()){
+                        case 'dc':
+                            return cp1
+                            break;
+                        case 'tl':
+                            return cp3
+                            break;
+                        default:
+                            return cp2
+                    }
+                },
                 dsChiphi(){
-                    if(!this.smota){return this.danhsach}
-                    let ds={};
-                    this.smota=this.smota.trim().toLowerCase();
-                    for (k in this.danhsach){
-                        if (this.danhsach[k].mota.toLowerCase().indexOf(this.smota) !== -1){ds[k]=this.danhsach[k]};
-                    };
-                    return ds;
+                    if(!this.smota){return this.danhsach};
+                    return this.danhsach.filter(cp => cp.mota.toLowerCase().indexOf(this.smota.toLowerCase()) !== -1);
                 }
             },
             methods:{
                 onChange(){this.isOpen = true;},
-                onArrowDown(){},
-                onArrowUp(){},
-                onEnter(){},
-                setChiphi(k){
-                    this.smota = this.danhsach[k].mota;
+                onArrowDown(){
+                    this.curIndex = this.curIndex + 1;
+                    if (this.curIndex > this.dsChiphi.length){this.curIndex=0};
+                },
+                onArrowUp(){
+                    this.curIndex = this.curIndex - 1;
+                    if (this.curIndex < 0){this.curIndex=this.dsChiphi.length};
+                },
+                onEnter(){
+                    this.smota = this.dsChiphi[this.curIndex];
                     this.isOpen = false;
+                    this.curIndex = -1;
+                },
+                setChiphi(i){
+                    this.smota = this.dsChiphi[i].mota;
+                    this.isOpen = false;
+                },
+                handleClickOutside(evt) {
+                  if (!this.$el.contains(evt.target)) {
+                    this.isOpen = false;
+                    this.arrowCounter = -1;
+                  }
                 }
             },
+            mounted(){document.addEventListener("click", this.handleClickOutside)},
+            destroyed(){document.removeEventListener("click", this.handleClickOutside)},
             template:
                 `<div>
                     <input type="text" v-model="smota"
@@ -78,12 +123,12 @@
                         @keyup.enter="onEnter"
                     />
                     <ol v-show="isOpen">
-                        <li v-for="(v,k,i) in dsChiphi"
-                            @click="setChiphi(k)"
-                            @keyup.enter="setChiphi(k)"
+                        <li v-for="(v,i) in dsChiphi"
+                            @click="setChiphi(i)"
+                            @keyup.enter="setChiphi(i)"
                             @mouseover=""
                             @mouseout=""
-                            :class="{'is-active': i===arrowCounter}"
+                            :class="{'is-active': i===curIndex}"
                         >
                             {{v.mota}}
                         </li>
