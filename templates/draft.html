@@ -81,6 +81,7 @@
                     }
                 },
                 dsChiphi(){
+                    this.curIndex = 0;
                     if(!this.smota){return this.danhsach};
                     return this.danhsach.filter(cp => cp.mota.toLowerCase().indexOf(this.smota.toLowerCase()) !== -1);
                 }
@@ -89,27 +90,30 @@
                 onChange(){this.isOpen = true;},
                 onArrowDown(){
                     this.curIndex = this.curIndex + 1;
-                    if (this.curIndex > this.dsChiphi.length){this.curIndex=0};
+                    if (this.curIndex>(this.dsChiphi.length-1)){this.curIndex=0;};
                 },
                 onArrowUp(){
                     this.curIndex = this.curIndex - 1;
-                    if (this.curIndex < 0){this.curIndex=this.dsChiphi.length};
+                    if (this.curIndex < 0){this.curIndex=this.dsChiphi.length-1};
                 },
                 onEnter(){
-                    this.smota = this.dsChiphi[this.curIndex];
+                    this.setChiphi(this.curIndex);
                     this.isOpen = false;
-                    this.curIndex = -1;
                 },
                 setChiphi(i){
-                    this.smota = this.dsChiphi[i].mota;
+                    if (i>=0){this.smota = this.dsChiphi[i].mota
+                    }else{
+                        this.smota = this.dsChiphi[this.curIndex].mota
+                    };
                     this.isOpen = false;
                 },
                 handleClickOutside(evt) {
                   if (!this.$el.contains(evt.target)) {
                     this.isOpen = false;
-                    this.arrowCounter = -1;
+                    this.curIndex = 0;
                   }
-                }
+                },
+                liHover(){}
             },
             mounted(){document.addEventListener("click", this.handleClickOutside)},
             destroyed(){document.removeEventListener("click", this.handleClickOutside)},
@@ -122,11 +126,12 @@
                         @keyup.up="onArrowUp"
                         @keyup.enter="onEnter"
                     />
+                    <label> curIndex ={{curIndex}} chi phi {{dsChiphi[curIndex].mota}}</label>
                     <ol v-show="isOpen">
                         <li v-for="(v,i) in dsChiphi"
                             @click="setChiphi(i)"
                             @keyup.enter="setChiphi(i)"
-                            @mouseover=""
+                            @mouseover="liHover"
                             @mouseout=""
                             :class="{'is-active': i===curIndex}"
                         >
