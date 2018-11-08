@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Phòng kế hoạch</title>
+    <!-- Required Stylesheets
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/qtgt.css">
+</head>
+
+<body>
+    <div id="app">
+        <ul class="todo-list">
+            <li v-for="(item, index) in items" v-on:click="enableEdit(index)">
+                <span v-if="! item.edit">{{item.title}}</span>
+                <input type="text" class="edit_item" v-model="item.title" v-if="item.edit" ref='search' v-focus v-on:keyup.enter="disableEdit(index)" v-on:blur="disableEdit(index)">
+                
+                <button @click="removeElement(index)">X</button>
+            </li>
+        </ul>
+    <div class="buttons">
+        <label for="add_item">Add item</label>
+        <input id="add_item" type="text" @keyup.enter="addItem" />
+        <span @click="removeAll" class="remove_all" v-if="items.length > 0">Delete all todos</span>
+    </div>
+      <p class="error" v-if="isError">Este valor ya existe en la lista</p>
+    </div>
+
+    <!-- script block -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    
+    <script type="text/javascript">
+        const focus = {
+            inserted(el) {
+              el.focus()
+            },
+          }
+
+        var todo = new Vue({
+          el: '#app',
+          data: {
+            items: [{
+              title: 'HTML5',
+              edit: false
+            }, {
+              title: 'CSS3',
+              edit: false
+            }, {
+              title: 'JavaScript',
+              edit: false
+            }, ],
+            showInput: false,
+            isError: false
+          },
+          directives: { focus },
+          methods: {
+            addItem: function(e) {
+              value = e.target.value;
+
+              if (value === '') {
+                return false;
+              }
+
+              if (this.itemExist(value) === true) {
+                this.isError = true;
+                return false
+              }
+
+              this.isError = false;
+              e.target.value = '';
+              this.items.push({
+                title: value,
+                edit: false
+              });
+            },
+            removeElement: function(index) {
+              this.items.splice(index, 1);
+            },
+            removeAll: function() {
+              this.items = []
+            },
+            itemExist: function(value) {
+
+              for (var i = 0; i < this.items.length; i++) {
+                if (this.items[i].title === value) {
+                  return true;
+                }
+              }
+
+              return false;
+
+            },
+            enableEdit: function(index) {
+              this.items[index].edit = true;
+            },
+            disableEdit: function(index) {
+              this.items[index].edit = false;
+            }
+          }
+        });
+    </script>
+</body>
+
+</html>
