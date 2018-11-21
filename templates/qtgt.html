@@ -151,25 +151,44 @@
                     <div class="col-tien1">Tiền cái</div>
                     <div class="col-tien2">Tiền ngánh</div>
                 </div>
-                <div class="row noidung" v-for="(i, k) in data5" v-key="k" draggable="true" 
+                <div class="row noidung" v-for="(v, k) in data5" :key="k" draggable="true" 
                     @dragstart="drag5Start(k, $event)" 
                     @dragover.prevent 
                     @dragend="dragEnd" 
                     @drop="drag5Finish(k, $event)"
                 >
                     <div class="col-tt">
-                        <button type="button" class="btn btn-outline-dark" @click="removeI5(i)">
+                        <button type="button" class="btn btn-outline-dark" @click="remove5(k)">
                             <i class="fa fa-trash"></i>
                         </button>
                          {`k+1`}
                     </div>
-                    <div class="col-chiphi">
-                        
+                    
+                    <div class="col-chiphi" @focus="edit5cp(k)" @click.self="edit5cp(k)" v-if="!v.editcp">
+                        {`v.machiphi`}-{`v.mota`}
+                    </div>
+                    <div class="col-chiphi" v-if="v.editcp">
+                        <input type="text" v-model="motatl" v-focus
+                        @click.self="cpOpen=!cpOpen"
+                        @keyup.delete="cpOpen=true"
+                        @keyup.down="dstlIndexDown"
+                        @keyup.up="dstlIndexUp"
+                        @keyup.enter="setcp5(k,dstlIndex)"
+                        @blur="dedit5cp(k)"/>
+                        <ol v-show="cpOpen">
+                            <li v-for="(v1,k1) in dstl" :key="k1"
+                                @mouseover="dstlIndex=k1"
+                                @click.self="setcp5(k,dstlIndex)"
+                                :class="{'is-active': k1===dstlIndex}"
+                            >
+                                {`v1.machiphi`}-{`v1.mota`}
+                            </li>
+                        </ol>
                     </div>
 
-                    <div class="col-dvt">{`i.dvt`}</div>
+                    <div class="col-dvt">{`v.dvt`}</div>
                     <div class="col-sl1">
-                        <input type="text" v-model.number="i.sl_oc" :id="'sl51-' + k"
+                        <input type="text" v-model.number="v.sl_oc" :id="'sl51-' + k"
                             @keyup.enter="down2e('sl51-',k)"
                             @keyup.ctrl.down="down2e('sl51-',k)"
                             @keyup.ctrl.left="move2e('cp5-',k)"
@@ -177,20 +196,20 @@
                         >
                     </div>
                     <div class="col-sl2">
-                        <input type="text" v-model.number="i.sl_on" :id="'sl52-' + k"
+                        <input type="text" v-model.number="v.sl_on" :id="'sl52-' + k"
                             @keyup.enter="down2e('sl52-',k)"
                             @keyup.ctrl.down="down2e('sl52-',k)"
                             @keyup.ctrl.left="move2e('sl51-',k)"
                             @keyup.ctrl.right="move2e('cp5-',k)"
                         >
                     </div>
-                    <div class="col-gia">{`i.dongia | currency`}</div>
-                    <div class="col-tien1">{`i.tien_oc | currency`}</div>
-                    <div class="col-tien2">{`i.tien_on | currency`}</div>
+                    <div class="col-gia">{`v.dongia | currency`}</div>
+                    <div class="col-tien1">{`v.tien_oc | currency`}</div>
+                    <div class="col-tien2">{`v.tien_on | currency`}</div>
                 </div>
                 <div class="row noidung">
                     <div class="col-tt">
-                        <button type="button" class="btn btn-outline-dark" @click="addI5">
+                        <button type="button" class="btn btn-outline-dark" @click="add5">
                             <i class="fa fa-plus-square"></i>
                         </button>
                     </div>

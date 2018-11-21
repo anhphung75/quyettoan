@@ -131,7 +131,7 @@
                         <li v-for="(v,i) in dsChiphi"
                             @click="setChiphi(i)"
                             @keyup.enter="setChiphi(i)"
-                            @mouseover="liHover"
+                            @mouseover="curIndex=i"
                             @mouseout=""
                             :class="{'is-active': i===curIndex}"
                         >
