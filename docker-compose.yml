@@ -1,0 +1,49 @@
+version: '3.7'
+
+services:
+    postgres:
+          image: postgres
+          environment:
+            POSTGRES_USER: blog
+            POSTGRES_PASSWORD: blog
+            POSTGRES_DB: blog
+          ports:
+            - "3306"
+        
+    redis:
+        container_name: redis
+        image: redis:alpine
+        command: ["redis-server", "--appendonly", "yes"]
+        volumes:
+            - ./data/redis:/data
+        user: "${UID_GID}"
+        ports:
+            - "6379:6379"
+        networks:
+            - common
+        restart: always
+
+    mysql:
+        container_name: mysql
+        image: mysql:5.7
+        volumes:
+            - ./data/mysql:/var/lib/mysql
+        user: "${UID_GID}"
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: 'justapassword'
+        networks:
+            - common
+        restart: always
+    
+    web:
+      build: .
+      links:
+        - postgres
+      ports:
+        - "8888:8888"
+      command: --db_host=postgres
+
+networks:
+    common:
