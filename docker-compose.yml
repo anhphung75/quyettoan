@@ -9,7 +9,7 @@ services:
             POSTGRES_DB: blog
           ports:
             - "3306"
-        
+
     redis:
         container_name: redis
         image: redis:alpine
@@ -36,8 +36,8 @@ services:
         networks:
             - common
         restart: always
-    
-    web:
+
+    webapp:
       build: .
       links:
         - postgres
