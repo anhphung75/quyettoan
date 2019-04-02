@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+        <title>Phòng kế hoạch</title>
+        <!-- Required Stylesheets -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
+        <link rel="stylesheet" href="../static/css/qtgt.css" />
+    </head>
+
+    <body>
+        <section id="webapp">
+            <nav class="vbox">
+                <h2>
+                    HỒ SƠ KHÁCH HÀNG NĂM
+                    <select v-model="curYear">
+                        <option v-for="(x,index) in dsnam" :selected="index === 0">
+                            {`x`}
+                        </option>
+                    </select>
+                </h2>
+            </nav>
+            <header> dat filter noi day
+
+            </header>
+            <main class="vbox">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <td style="cursor:auto" v-if="showIndex">#</td>
+                            <td @click="sortByColumn(column.name)" v-for="column in columns">
+                                {{ column.name }}
+                                <span v-if="sortBy.column != column.name" class="glyphicon glyphicon glyphicon-sort"></span>
+                                <span v-if="sortBy.column == column.name && sortBy.direction == 1"
+                                    class="glyphicon glyphicon glyphicon-sort-by-attributes"></span>
+                                <span v-if="sortBy.column == column.name && sortBy.direction == -1"
+                                    class="glyphicon glyphicon glyphicon-sort-by-attributes-alt"></span>
+                            </td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(rowIndex, row) in rows">
+                            <td v-if="showIndex">{{ ( rowIndex + 1 ) + ( currentPage * itemsPerPage ) }}</td>
+                            <td v-for="(index, column) in columns">
+                                <div v-if="column.type == 'string' || !column.type">{{ getColumnValue(row, column.name) }}</div>
+                                <div v-if="column.type == 'email'"><a
+                                        href="mailto{{row[column.name]}}">{{ getColumnValue(row, column.name) }}</a></div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </main>
+            <footer>
+                <div class="vue-table__pagination-info">
+                    Showing {{ showing.begin }} to {{ showing.end }} of {{ showing.total }} entries
+                </div>
+                <div class="vue-table__pagination">
+                    <nav>
+                        <ul v-if="pages.length > 1" class="pagination">
+                            <li @click="setPage(firstPage)" :class="{'disabled': currentPage == firstPage}"><a
+                                    class="simple-pagination-link" href="#" aria-label="Previous"><i class="fa fa-angle-double-left"
+                                        aria-hidden="true"></i></a></li>
+                            <li @click="setPage(prevPage)" :class="{'disabled': currentPage == firstPage}"><a
+                                    class="simple-pagination-link" href="#" aria-label="Previous"><i class="fa fa-angle-left"
+                                        aria-hidden="true"></i></a></li>
+                            <li v-for="page in pages" @click="setPage(page)" :class="{active: page == currentPage}"><a
+                                    class="simple-pagination-link" href="#">{{ page + 1 }} <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li @click="setPage(nextPage)" :class="{'disabled': currentPage == lastPage}"><a
+                                    class="simple-pagination-link" href="#" aria-label="Next"><i class="fa fa-angle-right"
+                                        aria-hidden="true"></i></a></li>
+                            <li @click="setPage(lastPage)" :class="{'disabled': currentPage == lastPage}"><a
+                                    class="simple-pagination-link" href="#" aria-label="Next"><i class="fa fa-angle-double-right"
+                                        aria-hidden="true"></i></a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </footer>
+        </section>
+
+        <!-- script block -->
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+        <script src="https://unpkg.com/vue"></script>
+        <script src="../static/js/hoso.js"></script>
+    </body>
+</html>
