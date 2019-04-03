@@ -1,52 +1,95 @@
-var curYear = new Date().getFullYear();
 /* import * as hoso from "./hoso/api";
 var TatcaHoso = hoso.Tat(curYear);
 */
+var listJson= [
+    {mahoso:'GM01', sohoso:'GM12345/10', khachhang:'cty a', diachi:'123 duong 1, quan 2'},
+    { mahoso: 'GM02', sohoso: 'GM12345/11', khachhang: 'cty b', diachi: '123 duong 1, quan 3' },
+    { mahoso: 'GM03', sohoso: 'GM12345/12', khachhang: 'cty c', diachi: '123 duong 1, quan 4' },
+    { mahoso: 'GM04', sohoso: 'GM12345/13', khachhang: 'cty d', diachi: '123 duong 1, quan 5' },
+    { mahoso: 'GM05', sohoso: 'GM12345/14', khachhang: 'cty e', diachi: '123 duong 1, quan 6' },
+    { mahoso: 'GM06', sohoso: 'GM12345/15', khachhang: 'cty f', diachi: '123 duong 1, quan 7' },
+    { mahoso: 'GM07', sohoso: 'GM12345/16', khachhang: 'cty g', diachi: '123 duong 1, quan 8' },
+    { mahoso: 'GM08', sohoso: 'GM12345/17', khachhang: 'cty h', diachi: '123 duong 1, quan 9' },
+    { mahoso: 'GM09', sohoso: 'GM12345/18', khachhang: 'cty i', diachi: '123 duong 1, quan 10' },
+    { mahoso: 'GM10', sohoso: 'GM12345/19', khachhang: 'cty j', diachi: '123 duong 1, quan 12' }
+];
 
 var webapp = new Vue({
     el: '#webapp',
     delimiters: ["{`", "`}"],
     data() {
         return {
-        curYear: curYear,
+        curYear: new Date().getFullYear(),
         dsnam: [2017, 2018 , 2019 , 2020],
+        rows: listJson,
+        s_mahoso: '',
+        s_sohoso: '',
+        s_khachhang: '',
+        s_diachi: '',
         /* pagination */
-        rows: [],
         currentPage: 0,
         itemsPerPage:7,
         filters: {},
         sortBy: {
-            column: this.columns[0].name,
+            colName: 'stt',
             direction: 1
         }
     }},
     computed: {
+        rowsFilter() {
+            let rowX= this.rows;
+            if (len(s_mahoso)>0){};
+            let row1 = this.rows.filter(item =>
+                (item.mahoso.toLowerCase().indexOf(this.s_mahoso.toLowerCase()) > -1));
+            let row2 = this.row1.filter(
+                item =>
+                    item.sohoso
+                        .toLowerCase()
+                        .indexOf(this.s_sohoso.toLowerCase()) > -1
+            );
+            let row3 = this.row2.filter(
+                item =>
+                    item.khachhang
+                        .toLowerCase()
+                        .indexOf(this.s_khachhang.toLowerCase()) > -1
+            );
+            return this.row3.filter(item =>
+                (item.diachi.toLowerCase().indexOf(this.s_diachi.toLowerCase()) > -1));
+        },
         showing() {
             let currentPage = this.currentPage + 0;
             let begin = (currentPage * this.itemsPerPage) + 1;
-            let end = begin - 1 + this.rows.length;
-            let total = this.data.length;
+            let end = begin - 1 + this.rowsFilter.length;
+            let total = this.rowsFilter.length;
             return {
                 begin, end, total
             }
         },
         totalPages() {
-            return Math.ceil(this.data.length / this.itemsPerPage)
+            return Math.ceil(
+                this.rowsFilter.length / this.itemsPerPage
+            );
         },
-        rows() {
+        rowsPage() {
             if (this.currentPage != 0 && this.currentPage >= this.totalPages) {
                 this.currentPage = this.totalPages - 1
             }
             let index = this.currentPage * this.itemsPerPage;
-            let rows = this.data;
-            let column = this.sortBy.column;
+            let rows = this.rowsFilter;
+            let colName = this.sortBy.colName;
 
             rows = rows.sort((a, b) => {
 
                 if (this.sortBy.direction == 1)
-                    return a[this.sortBy.column] > b[this.sortBy.column] ? 1 : -1;
+                    return a[this.sortBy.colName] >
+                        b[this.sortBy.colName]
+                        ? 1
+                        : -1;
                 else
-                    return a[this.sortBy.column] < b[this.sortBy.column] ? 1 : -1;
+                    return a[this.sortBy.colName] <
+                        b[this.sortBy.colName]
+                        ? 1
+                        : -1;
 
                 return 0;
 
@@ -105,6 +148,13 @@ var webapp = new Vue({
     methods: {
         setPage(page) {
             this.currentPage = page
+        },
+        sortByColumn(colName) {
+            this.sortBy.colName == colName
+                ? (this.sortBy.direction =
+                      this.sortBy.direction * -1)
+                : (this.sortBy.direction = 1);
+            this.sortBy.colName = colName;
         },
     }
 });

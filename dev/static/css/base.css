@@ -1,23 +1,61 @@
-html, body {
-  margin: 0px;
-  padding: 0px;
-  font-family: "Arial";
-  font-size: 14;
-  line-height: normal;
+@charset "UTF-8";
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+@import url(//fonts.googleapis.com/css?family=Open+Sans);
+html,
+body {
+    font-family: "Open Sans";
+    font-size: 16px;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: justify;
+    float: none;
+    display: block;
+}
+.vbox {
+    display: flex;
+    flex-flow: column nowrap;
+}
+.hbox {
+    display: flex;
+    flex-flow: row nowrap;
+}
+.wrap {
+    flex-wrap: wrap;
+}
+.nowrap-text {
+    white-space: nowrap;
+}
+.fat {
+    flex: 1 1 auto;
+}
+.fit {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+br {
+    line-height: 1;
 }
 /* base layout */
-#trangchu{
-  display:flex;
-  flex-flow: row wrap;
-  min-width: 800px;
-  font-size: 2em;
+#trangchu {
+    height: 100vh;
+    width: 100vw;
 }
-#trangchu>header,nav,main,footer{
-  border-radius: 7px;
-  margin: 5px;
-  padding: 10px;
+#trangchu nav {
+    flex-basis: 5cm;
+    background-color: #88d8b0;
 }
-#trangchu>header{order: 1;height: 100px;flex:0 1 100%;background-color: #CCC;}
-#trangchu>nav{order: 2;flex: 0 1 200px;background-color: #ff6f69;}
-#trangchu>main{order: 3;min-height: 400px;flex:1;background-color: #88d8b0;}
-#trangchu>footer{order: 4;height: 100px;flex:0 1 100%;background-color: #ffcc5c;}
+#trangchu nav summary{
+    font-weight: bold;
+}
+#trangchu > nav, main {
+    border-radius: 7px;
+    margin: 5px;
+    padding: 10px;
+}

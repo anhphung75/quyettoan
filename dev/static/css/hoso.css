@@ -1,0 +1,17 @@
+#webapp nav h2{
+    text-align: center;
+}
+#webapp nav select{
+    text-align: center;
+    font-weight: bold;
+    font-size: 1em;
+}
+.stt{
+    flex-basis: 5%;
+}
+.so-ho-so{
+    flex-basis: 10%;
+}
+.khach-hang{
+    flex-basis: 20%;
+}
