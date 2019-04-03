@@ -6,7 +6,7 @@ var listJson= [
     { mahoso: 'GM02', sohoso: 'GM12345/11', khachhang: 'cty b', diachi: '123 duong 1, quan 3' },
     { mahoso: 'GM03', sohoso: 'GM12345/12', khachhang: 'cty c', diachi: '123 duong 1, quan 4' },
     { mahoso: 'GM04', sohoso: 'GM12345/13', khachhang: 'cty d', diachi: '123 duong 1, quan 5' },
-    { mahoso: 'GM05', sohoso: 'GM12345/14', khachhang: 'cty e', diachi: '123 duong 1, quan 6' },
+    { mahoso: 'GM05', sohoso: 'GM12345/14', khachhang: 'cty e', diachi: '123 duong 1, quan 6 123 duong 1, quan 6 123 duong 1, quan 6 123 duong 1, quan 6 123 duong 1, quan 6' },
     { mahoso: 'GM06', sohoso: 'GM12345/15', khachhang: 'cty f', diachi: '123 duong 1, quan 7' },
     { mahoso: 'GM07', sohoso: 'GM12345/16', khachhang: 'cty g', diachi: '123 duong 1, quan 8' },
     { mahoso: 'GM08', sohoso: 'GM12345/17', khachhang: 'cty h', diachi: '123 duong 1, quan 9' },
@@ -27,7 +27,7 @@ var webapp = new Vue({
         s_khachhang: '',
         s_diachi: '',
         /* pagination */
-        currentPage: 0,
+        curPage: 0,
         itemsPerPage:7,
         filters: {},
         sortBy: {
@@ -38,43 +38,37 @@ var webapp = new Vue({
     computed: {
         rowsFilter() {
             let rowX= this.rows;
-            if (len(s_mahoso)>0){};
-            let row1 = this.rows.filter(item =>
-                (item.mahoso.toLowerCase().indexOf(this.s_mahoso.toLowerCase()) > -1));
-            let row2 = this.row1.filter(
-                item =>
-                    item.sohoso
-                        .toLowerCase()
-                        .indexOf(this.s_sohoso.toLowerCase()) > -1
-            );
-            let row3 = this.row2.filter(
-                item =>
-                    item.khachhang
-                        .toLowerCase()
-                        .indexOf(this.s_khachhang.toLowerCase()) > -1
-            );
-            return this.row3.filter(item =>
-                (item.diachi.toLowerCase().indexOf(this.s_diachi.toLowerCase()) > -1));
+            if (this.s_sohoso.length > 0) {
+                rowX = rowX.filter(item =>
+                    (item.sohoso.toLowerCase().indexOf(this.s_sohoso.toLowerCase()) > -1));
+            };
+            if (this.s_khachhang.length > 0) {
+                rowX = rowX.filter(item =>
+                    (item.khachhang.toLowerCase().indexOf(this.s_khachhang.toLowerCase()) > -1));
+            };
+            if (this.s_diachi.length > 0) {
+                rowX = rowX.filter(item =>
+                    (item.diachi.toLowerCase().indexOf(this.s_diachi.toLowerCase()) > -1));
+            };
+            return rowX;
         },
         showing() {
-            let currentPage = this.currentPage + 0;
-            let begin = (currentPage * this.itemsPerPage) + 1;
+            let curPage = this.curPage + 0;
+            let begin = (curPage * this.itemsPerPage) + 1;
             let end = begin - 1 + this.rowsFilter.length;
             let total = this.rowsFilter.length;
             return {
                 begin, end, total
-            }
+            };
         },
         totalPages() {
-            return Math.ceil(
-                this.rowsFilter.length / this.itemsPerPage
-            );
+            return Math.ceil(this.rowsFilter.length / this.itemsPerPage);
         },
         rowsPage() {
-            if (this.currentPage != 0 && this.currentPage >= this.totalPages) {
-                this.currentPage = this.totalPages - 1
+            if (this.curPage != 0 && this.curPage >= this.totalPages) {
+                this.curPage = this.totalPages - 1
             }
-            let index = this.currentPage * this.itemsPerPage;
+            let index = this.curPage * this.itemsPerPage;
             let rows = this.rowsFilter;
             let colName = this.sortBy.colName;
 
@@ -104,11 +98,11 @@ var webapp = new Vue({
             return this.totalPages - 1;
         },
         nextPage() {
-            let next = this.currentPage + 1;
+            let next = this.curPage + 1;
             return next > this.lastPage ? this.lastPage : next;
         },
         prevPage() {
-            let prev = this.currentPage - 1;
+            let prev = this.curPage - 1;
             return prev < this.firstPage ? this.firstPage : prev;
         },
         pages() {
@@ -117,7 +111,7 @@ var webapp = new Vue({
                 pages.push(i);
             }
             if (pages.length > 5) {
-                let active = this.currentPage,
+                let active = this.curPage,
                     before = 2,
                     after = 2,
                     last = pages.length - 1,
@@ -147,7 +141,7 @@ var webapp = new Vue({
     },
     methods: {
         setPage(page) {
-            this.currentPage = page
+            this.curPage = page
         },
         sortByColumn(colName) {
             this.sortBy.colName == colName

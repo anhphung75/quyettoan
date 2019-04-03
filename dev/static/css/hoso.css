@@ -15,3 +15,14 @@
 .khach-hang{
     flex-basis: 20%;
 }
+.dia-chi{
+    flex-basis: 65%;
+}
+.search input{
+    height: 100%;
+    width: 100%;
+    border: 1px solid red;
+}
+.bao{
+    border: 1px solid green;
+}

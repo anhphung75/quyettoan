@@ -30,43 +30,41 @@
                     </select>
                 </h2>
             </nav>
-            <header>
-                <div class='hbox search'>
-                    <div class='stt'></div>
-                    <input type="text" v-model="s_sohoso" class='so-ho-so'/>
-                    <input type="text" v-model="s_khachhang" class='khach-hang'/>
-                    <input type="text" v-model="s_diachi" class='dia-chi'/>
-                </div>
-            </header>
             <main class="vbox">
-                <div class='hbox tieude'>
-                    <div class='stt' @click="sortByColumn("stt")>
+                <div class='hbox search bao'>
+                    <div class='stt'>Tìm</div>
+                    <div class='so-ho-so'><input type="text" v-model="s_sohoso" /></div>
+                    <div class='khach-hang'><input type="text" v-model="s_khachhang" /></div>
+                    <div class='dia-chi'><input type="text" v-model="s_diachi" /></div>
+                </div>
+                <div class='hbox tieude bao'>
+                    <div class='stt' @click="sortByColumn('stt')">
                         STT
                         <i class="fas fa-sort-alpha-up"></i>
                         <i class="fas fa-sort-alpha-down"></i>
                     </div>
-                    <div class='so-ho-so' @click="sortByColumn("sohoso")>Số hồ sơ</div>
-                    <div class='khach-hang' @click="sortByColumn("khachhang")>Khách hàng</div>
-                    <div class='dia-chi' @click="sortByColumn("diachi")>Địa chỉ</div>
+                    <div class='so-ho-so' @click="sortByColumn('sohoso')">Số hồ sơ</div>
+                    <div class='khach-hang' @click="sortByColumn('khachhang')">Khách hàng</div>
+                    <div class='dia-chi' @click="sortByColumn('diachi')">Địa chỉ</div>
                 </div>
-                <div class='hbox noidung' v-for="(item, stt) in rowsPage" :key="stt">
-                    <div class='stt'>{`stt`}+1</div>
+                <div class='hbox noidung bao' v-for="(item, stt) in rowsPage" :key="stt">
+                    <div class='stt'>{`stt+1`}</div>
                     <div class='so-ho-so'>{`item.sohoso`}</div>
                     <div class='khach-hang'>{`item.khachhang`}</div>
                     <div class='dia-chi'>{`item.diachi`}</div>
                 </div>
             </main>
-            <footer>
+            <footer class='hbox'>
                 <div class="vue-table__pagination-info">
-                    Showing {{ showing.begin }} to {{ showing.end }} of
-                    {{ showing.total }} entries
+                    Showing {`showing.begin`} to {` showing.end `} of
+                    {`showing.total`} entries
                 </div>
-                <div class="vue-table__pagination">
+                <div class="hbox">
                     <nav>
                         <ul v-if="pages.length > 1" class="pagination">
                             <li
                                 @click="setPage(firstPage)"
-                                :class="{'disabled': currentPage == firstPage}"
+                                :class="{'disabled': curPage == firstPage}"
                             >
                                 <a
                                     class="simple-pagination-link"
@@ -80,7 +78,7 @@
                             </li>
                             <li
                                 @click="setPage(prevPage)"
-                                :class="{'disabled': currentPage == firstPage}"
+                                :class="{'disabled': curPage == firstPage}"
                             >
                                 <a
                                     class="simple-pagination-link"
@@ -95,7 +93,7 @@
                             <li
                                 v-for="page in pages"
                                 @click="setPage(page)"
-                                :class="{active: page == currentPage}"
+                                :class="{active: page == curPage}"
                             >
                                 <a class="simple-pagination-link" href="#"
                                     >{{ page + 1 }}
@@ -104,7 +102,7 @@
                             </li>
                             <li
                                 @click="setPage(nextPage)"
-                                :class="{'disabled': currentPage == lastPage}"
+                                :class="{'disabled': curPage == lastPage}"
                             >
                                 <a
                                     class="simple-pagination-link"
@@ -118,7 +116,7 @@
                             </li>
                             <li
                                 @click="setPage(lastPage)"
-                                :class="{'disabled': currentPage == lastPage}"
+                                :class="{'disabled': curPage == lastPage}"
                             >
                                 <a
                                     class="simple-pagination-link"
