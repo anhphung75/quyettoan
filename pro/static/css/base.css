@@ -1,0 +1,61 @@
+@charset "UTF-8";
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+@import url(//fonts.googleapis.com/css?family=Open+Sans);
+html,
+body {
+    font-family: "Open Sans";
+    font-size: 16px;
+    margin: 0;
+    border: 0;
+    padding: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
+    text-align: justify;
+    float: none;
+    display: block;
+}
+.vbox {
+    display: flex;
+    flex-flow: column nowrap;
+}
+.hbox {
+    display: flex;
+    flex-flow: row nowrap;
+}
+.wrap {
+    flex-wrap: wrap;
+}
+.nowrap-text {
+    white-space: nowrap;
+}
+.fat {
+    flex: 1 1 auto;
+}
+.fit {
+    flex: 0 0 auto;
+    white-space: nowrap;
+}
+br {
+    line-height: 1;
+}
+/* base layout */
+#trangchu {
+    height: 100vh;
+    width: 100vw;
+}
+#trangchu nav {
+    flex-basis: 5cm;
+    background-color: #88d8b0;
+}
+#trangchu nav summary{
+    font-weight: bold;
+}
+#trangchu > nav, main {
+    border-radius: 7px;
+    margin: 5px;
+    padding: 10px;
+}

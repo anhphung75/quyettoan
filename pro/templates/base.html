@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Phòng kế hoạch</title>
+    <link rel="stylesheet" href="../static/css/base.css">
+    <!-- Fontawesome for Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous">
+</head>
+
+<body>
+    <div id="trangchu" class='hbox'>
+        <nav id='mainmenu' class='vbox'>
+            <details>
+                <summary>Phòng kế hoạch</summary>
+                <p>Quyết toán giá trị</p>
+                <p>Quyết toán vật tư</p>
+                <p>Hoàn công</p>
+                <p>Danh sách khách hàng</p>
+            </details>
+            <details>
+                <summary>Quản lý mạng lưới Quận Thủ Đức</summary>
+                <p>Quyết toán giá trị</p>
+                <p>Quyết toán vật tư</p>
+                <p>Hoàn công</p>
+                <p>Danh sách khách hàng</p>
+            </details>
+            <details>
+                <summary>Quản lý mạng lưới Quận 2</summary>
+                <p>Quyết toán giá trị</p>
+                <p>Quyết toán vật tư</p>
+                <p>Hoàn công</p>
+                <p>Danh sách khách hàng</p>
+            </details>
+            <details>
+                <summary>Quản lý mạng lưới Quận 9</summary>
+                <p>Quyết toán giá trị</p>
+                <p>Quyết toán vật tư</p>
+                <p>Hoàn công</p>
+                <p>Danh sách khách hàng</p>
+            </details>
+        </nav>
+        <main class='vbox fat'>Main content {% block content %}{% endblock %}</main>
+    </div>
+    <!-- script  -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="../static/js/base.js"></script>
+</body>
+
+</html>
