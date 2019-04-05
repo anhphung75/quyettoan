@@ -1,142 +1,113 @@
 <!DOCTYPE html>
 <html lang="vi">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Phòng kế hoạch</title>
-        <link rel="stylesheet" href="../static/css/base.css" />
-        <link rel="stylesheet" href="../static/css/hoso.css" />
-        <!-- Fontawesome for Icons -->
-        <link
-            rel="stylesheet"
-            href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
-            integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf"
-            crossorigin="anonymous"
-        />
-    </head>
 
-    <body>
-        <section id="webapp">
-            <nav class="vbox">
-                <h2>
-                    HỒ SƠ KHÁCH HÀNG NĂM
-                    <select v-model="curYear">
-                        <option
-                            v-for="(x,index) in dsnam"
-                            :selected="index === 0"
-                        >
-                            {`x`}
-                        </option>
-                    </select>
-                </h2>
-            </nav>
-            <main class="vbox">
-                <div class='hbox search bao'>
-                    <div class='stt'>Tìm</div>
-                    <div class='so-ho-so'><input type="text" v-model="s_sohoso" /></div>
-                    <div class='khach-hang'><input type="text" v-model="s_khachhang" /></div>
-                    <div class='dia-chi'><input type="text" v-model="s_diachi" /></div>
-                </div>
-                <div class='hbox tieude bao'>
-                    <div class='stt' @click="sortByColumn('stt')">
-                        STT
-                        <i class="fas fa-sort-alpha-up"></i>
-                        <i class="fas fa-sort-alpha-down"></i>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Phòng kế hoạch</title>
+    <link rel="stylesheet" href="../static/css/base.css" />
+    <link rel="stylesheet" href="../static/css/hoso.css" />
+    <!-- Fontawesome for Icons -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"
+        integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+</head>
+
+<body>
+    <section id="webapp">
+        <nav class="vbox">
+            <h2>
+                HỒ SƠ KHÁCH HÀNG NĂM
+                <select v-model="curYear">
+                    <option v-for="(x,index) in dsnam" :selected="index === 0">
+                        {`x`}
+                    </option>
+                </select>
+            </h2>
+        </nav>
+        <main class="vbox">
+            <div class='hbox search bao'>
+                <div class='stt'>Tìm</div>
+                <div class='don-vi-thi-cong'><input type="text" v-model="s_dvtc" /></div>
+                <div class='so-dot'><input type="text" v-model="s_sodot" /></div>
+                <div class='so-ho-so'><input type="text" v-model="s_sohoso" /></div>
+                <div class='khach-hang'><input type="text" v-model="s_khachhang" /></div>
+                <div class='dia-chi fat'><input type="text" v-model="s_diachi" /></div>
+            </div>
+            <div class='hbox tieude'>
+                <div class='stt bao hbox' @click="sortByColumn('stt')">
+                    <div class='fat'>STT</div>
+                    <div v-if="sortBy.colName === 'stt'" class='fit'>
+                        <i v-if="sortBy.direction !== 1" class="fas fa-sort-alpha-up"></i>
+                        <i v-else class="fas fa-sort-alpha-down"></i>
                     </div>
-                    <div class='so-ho-so' @click="sortByColumn('sohoso')">Số hồ sơ</div>
-                    <div class='khach-hang' @click="sortByColumn('khachhang')">Khách hàng</div>
-                    <div class='dia-chi' @click="sortByColumn('diachi')">Địa chỉ</div>
                 </div>
-                <div class='hbox noidung bao' v-for="(item, stt) in rowsPage" :key="stt">
-                    <div class='stt'>{`stt+1`}</div>
-                    <div class='so-ho-so'>{`item.sohoso`}</div>
-                    <div class='khach-hang'>{`item.khachhang`}</div>
-                    <div class='dia-chi'>{`item.diachi`}</div>
+                <div class='don-vi-thi-cong bao hbox' @click="sortByColumn('dvtc')">
+                    <div class='fat'>Đơn vị</div>
+                    <div v-if="sortBy.colName === 'dvtc'" class='fit'>
+                        <i v-if="sortBy.direction !== 1" class="fas fa-sort-alpha-up"></i>
+                        <i v-else class="fas fa-sort-alpha-down"></i>
+                    </div>
                 </div>
-            </main>
-            <footer class='hbox'>
-                <div class="vue-table__pagination-info">
-                    Showing {`showing.begin`} to {` showing.end `} of
-                    {`showing.total`} entries
+                <div class='so-dot bao hbox' @click="sortByColumn('sodot')">
+                    <div class='fat'>Số đợt</div>
+                    <div v-if="sortBy.colName === 'sodot'" class='fit'>
+                        <i v-if="sortBy.direction !== 1" class="fas fa-sort-alpha-up"></i>
+                        <i v-else class="fas fa-sort-alpha-down"></i>
+                    </div>
                 </div>
-                <div class="hbox">
-                    <nav>
-                        <ul v-if="pages.length > 1" class="pagination">
-                            <li
-                                @click="setPage(firstPage)"
-                                :class="{'disabled': curPage == firstPage}"
-                            >
-                                <a
-                                    class="simple-pagination-link"
-                                    href="#"
-                                    aria-label="Previous"
-                                    ><i
-                                        class="fa fa-angle-double-left"
-                                        aria-hidden="true"
-                                    ></i
-                                ></a>
-                            </li>
-                            <li
-                                @click="setPage(prevPage)"
-                                :class="{'disabled': curPage == firstPage}"
-                            >
-                                <a
-                                    class="simple-pagination-link"
-                                    href="#"
-                                    aria-label="Previous"
-                                    ><i
-                                        class="fa fa-angle-left"
-                                        aria-hidden="true"
-                                    ></i
-                                ></a>
-                            </li>
-                            <li
-                                v-for="page in pages"
-                                @click="setPage(page)"
-                                :class="{active: page == curPage}"
-                            >
-                                <a class="simple-pagination-link" href="#"
-                                    >{{ page + 1 }}
-                                    <span class="sr-only">(current)</span></a
-                                >
-                            </li>
-                            <li
-                                @click="setPage(nextPage)"
-                                :class="{'disabled': curPage == lastPage}"
-                            >
-                                <a
-                                    class="simple-pagination-link"
-                                    href="#"
-                                    aria-label="Next"
-                                    ><i
-                                        class="fa fa-angle-right"
-                                        aria-hidden="true"
-                                    ></i
-                                ></a>
-                            </li>
-                            <li
-                                @click="setPage(lastPage)"
-                                :class="{'disabled': curPage == lastPage}"
-                            >
-                                <a
-                                    class="simple-pagination-link"
-                                    href="#"
-                                    aria-label="Next"
-                                    ><i
-                                        class="fa fa-angle-double-right"
-                                        aria-hidden="true"
-                                    ></i
-                                ></a>
-                            </li>
-                        </ul>
-                    </nav>
+                <div class='so-ho-so bao hbox' @click="sortByColumn('sohoso')">
+                    <div class='fat'>Số hồ sơ</div>
+                    <div v-if="sortBy.colName === 'sohoso'" class='fit'>
+                        <i v-if="sortBy.direction !== 1" class="fas fa-sort-alpha-up"></i>
+                        <i v-else class="fas fa-sort-alpha-down"></i>
+                    </div>
                 </div>
-            </footer>
-        </section>
+                <div class='khach-hang bao hbox' @click="sortByColumn('khachhang')">
+                    <div class='fat'>Khách hàng</div>
+                    <div v-if="sortBy.colName === 'khachhang'" class='fit'>
+                        <i v-if="sortBy.direction !== 1" class="fas fa-sort-alpha-up"></i>
+                        <i v-else class="fas fa-sort-alpha-down"></i>
+                    </div>
+                </div>
+                <div class='dia-chi bao hbox fat' @click="sortByColumn('diachi')">
+                    <div class='fat'>Địa chỉ</div>
+                    <div v-if="sortBy.colName === 'diachi'" class='fit'>
+                        <i v-if="sortBy.direction !== 1" class="fas fa-sort-alpha-up"></i>
+                        <i v-else class="fas fa-sort-alpha-down"></i>
+                    </div>
+                </div>
+            </div>
+            <div class='hbox noidung bao' v-for="(item, stt) in recsPage" :key="stt">
+                <div class='stt'>{`curPage * itemsPerPage + stt + 1`}</div>
+                <div class='don-vi-thi-cong kedoc'>{`item.dvtc`}</div>
+                <div class='so-dot'>{`item.sodot`}</div>
+                <div class='so-ho-so kedoc'>{`item.sohoso`}</div>
+                <div class='khach-hang'>{`item.khachhang`}</div>
+                <div class='dia-chi fat kedoc'>{`item.diachi`}</div>
+            </div>
+        </main>
+        <hr />
+        <nav class="hbox">
+            <div class="info">
+                Tổng số {`recsTotal`} hồ sơ.
+            </div>
+            <div v-if="totalPage > 1" id='pagination' class='hbox'>
+                <i class="fa fa-angle-double-left fat" :class="{'disabled': curPage == firstPage}"
+                    @click="setPage(firstPage)"></i>
+                <i class="fa fa-angle-left fat" :class="{'disabled': curPage == firstPage}"
+                    @click="setPage(prevPage)"></i>
+                <a v-for="p in pages" @click="setPage(p)" class='fat' :class="{active: p == curPage}"><b>{`p+1`}</b></a>
+                <i class="fa fa-angle-right fat" :class="{'disabled': curPage == lastPage}"
+                    @click="setPage(nextPage)"></i>
+                <i class="fa fa-angle-double-right fat" :class="{'disabled': curPage == lastPage}"
+                    @click="setPage(lastPage)"></i>
+            </div>
+        </nav>
+    </section>
+    <!-- script block -->
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+    <script src="../static/js/hoso.js"></script>
+</body>
 
-        <!-- script block -->
-        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-        <script src="https://unpkg.com/vue"></script>
-        <script src="../static/js/hoso.js"></script>
-    </body>
 </html>

@@ -1,28 +1,75 @@
-#webapp nav h2{
+#webapp,
+nav,
+main,
+header,
+footer {
+    width: 100%;
+    height: 100%;
+}
+nav {
+    cursor: pointer;
+    justify-content: space-between;
+}
+nav .disabled {
+    cursor: no-drop;
+}
+nav .active {
+    background-color: #ccffff;
+}
+#webapp nav h2 {
     text-align: center;
 }
-#webapp nav select{
+#webapp nav select {
     text-align: center;
     font-weight: bold;
     font-size: 1em;
 }
-.stt{
+.stt {
     flex-basis: 5%;
 }
-.so-ho-so{
+.don-vi-thi-cong {
     flex-basis: 10%;
 }
-.khach-hang{
+.so-dot {
+    flex-basis: 10%;
+}
+.so-ho-so {
+    flex-basis: 10%;
+}
+.khach-hang {
     flex-basis: 20%;
 }
-.dia-chi{
-    flex-basis: 65%;
+.dia-chi {
+    flex-basis: 45%;
 }
-.search input{
+.search input {
     height: 100%;
     width: 100%;
     border: 1px solid red;
 }
-.bao{
+.bao {
     border: 1px solid green;
+}
+.kedoc {
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+.tieude {
+    text-align: center;
+    font-weight: bold;
+}
+#pagination {
+    flex-basis: 10cm;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    border: 1px solid #ddd;
+}
+#pagination > * {
+    height: 100%;
+    width: 100%;
+    align-self: center;
+    text-align: center;
+    margin: 4px;
+    border-radius: 5px;
 }
