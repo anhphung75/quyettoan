@@ -28,7 +28,7 @@ import tornado.web
 import unicodedata
 
 from tornado.options import define, options
-from .db import Session
+from db import Session
 
 import psycopg2
 from tornado_sqlalchemy import as_future, make_session_factory, SessionMixin
@@ -50,18 +50,14 @@ class Application(tornado.web.Application):
             (r"/", HomeHandler),
             (r"/hoso", HosoHandler),
             (r"/api/v1/hoso/([^/]+)", HosoApiHandler),
-            #(r"/auth/create", AuthCreateHandler),
-            #(r"/auth/login", AuthLoginHandler),
-            #(r"/auth/logout", AuthLogoutHandler),
         ]
         settings = dict(
             blog_title=u"Tornado Blog",
             template_path=os.path.join(os.path.dirname(__file__), "templates"),
             static_path=os.path.join(os.path.dirname(__file__), "static"),
-            xsrf_cookies=True,
+            #xsrf_cookies=True,
             cookie_secret="__TODO:_GENERATE_YOUR_OWN_RANDOM_VALUE_HERE__",
-            login_url="/auth/login",
-            session_factory=Session(),
+            #login_url="/auth/login",
             debug=True,
         )
 
@@ -69,12 +65,6 @@ class Application(tornado.web.Application):
 
 
 class BaseHandler(tornado.web.RequestHandler):
-    def initialize(self, session_factory):
-        self.db = session_factory
-
-    def on_finish(self, db):
-        self.db.remove()
-
     def prepare(self):
         self.form_data = {
             key: [val.decode('utf8') for val in val_list]
@@ -93,6 +83,7 @@ class BaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
         return self.get_secure_cookie("user")
 
+
 class HomeHandler(BaseHandler):
     def get(self):
         self.render("base.html")
@@ -103,7 +94,9 @@ class HosoHandler(BaseHandler):
     def get(self):
         nam = self.get_argument("nam", None)
         if nam:
-            result = self.db.execute("SELECT * FROM hoso WHERE nam = %s", int(nam))
+            db = Session()
+            result = db.execute("SELECT * FROM hoso WHERE nam = %s", int(nam))
+            db.remove()
             self.send_response(result, status=201)
 
 class HosoApiHandler(BaseHandler):
@@ -125,65 +118,6 @@ class HosoApiHandler(BaseHandler):
         self.send_response(result, status=201)
 
 
-class AuthCreateHandler(BaseHandler):
-    def get(self):
-        self.render("create_author.html")
-
-    def post(self):
-        hashed_password = tornado.ioloop.IOLoop.current().run_in_executor(
-            None,
-            bcrypt.hashpw,
-            tornado.escape.utf8(self.get_argument("password")),
-            bcrypt.gensalt(),
-        )
-        author = self.db.execute(
-            "INSERT INTO user (email, name, hashed_password) "
-            "VALUES (%s, %s, %s) RETURNING id",
-            self.get_argument("email"),
-            self.get_argument("name"),
-            tornado.escape.to_unicode(hashed_password),
-        )
-        self.set_secure_cookie("blogdemo_user", str(author.id))
-        self.redirect(self.get_argument("next", "/"))
-
-
-class AuthLoginHandler(BaseHandler):
-    def get(self):
-        # If there are no authors, redirect to the account creation page.
-        if not await self.any_author_exists():
-            self.redirect("/auth/create")
-        else:
-            self.render("login.html", error=None)
-
-    def post(self):
-        try:
-            author = await self.queryone(
-                "SELECT * FROM authors WHERE email = %s", self.get_argument(
-                    "email")
-            )
-        except NoResultError:
-            self.render("login.html", error="email not found")
-            return
-        hashed_password = await tornado.ioloop.IOLoop.current().run_in_executor(
-            None,
-            bcrypt.hashpw,
-            tornado.escape.utf8(self.get_argument("password")),
-            tornado.escape.utf8(author.hashed_password),
-        )
-        hashed_password = tornado.escape.to_unicode(hashed_password)
-        if hashed_password == author.hashed_password:
-            self.set_secure_cookie("blogdemo_user", str(author.id))
-            self.redirect(self.get_argument("next", "/"))
-        else:
-            self.render("login.html", error="incorrect password")
-
-
-class AuthLogoutHandler(BaseHandler):
-    def get(self):
-        self.clear_cookie("blogdemo_user")
-        self.redirect(self.get_argument("next", "/"))
-
-
 async def main():
     tornado.options.parse_command_line()
     app = Application()
@@ -197,4 +131,4 @@ async def main():
 
 
 if __name__ == "__main__":
-    tornado.ioloop.IOLoop.current().run_sync(main)
+    tornado.ioloop.IOLoop.current().start()

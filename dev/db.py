@@ -5,11 +5,12 @@ from sqlalchemy import Table, MetaData, ForeignKey, Column, create_engine
 from sqlalchemy import Integer, String, Unicode, DateTime, Date, Sequence
 from sqlalchemy.sql import func
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, relationship
+from sqlalchemy.orm import scoped_session, sessionmaker, relationship
 
 Base = declarative_base()
 
 class User(Base):
+    __tablename__ = 'user'
     email = Column(String(250), primary_key=True)
     username = Column(Unicode(255), nullable=True)
     password_hash = Column(Unicode(128), nullable=False)
@@ -37,21 +38,13 @@ class Hoso(Base):
     lastupdated = Column(DateTime(timezone=True), onupdate=func.now())
     #timestamp = Column(DateTime(timezone=True), onupdate=datetime.datetime.utcnow())
 
-class Address(Base):
-    __tablename__ = 'address'
-    # Here we define columns for the table address.
-    # Notice that each column is also a normal Python instance attribute.
-    id = Column(Integer, primary_key=True)
-    street_name = Column(String(250))
-    street_number = Column(String(250))
-    post_code = Column(String(250), nullable=False)
-    person_id = Column(Integer, ForeignKey('person.id'))
-    person = relationship(Person)
 
 # Create an engine that stores data in the local directory's
 # sqlalchemy_example.db file.
-engine = create_engine('sqlite:///sqlalchemy_example.db')
-
-# Create all tables in the engine. This is equivalent to "Create Table"
-# statements in raw SQL.
+#engine = create_engine('sqlite:///sqlalchemy_example.db')
+#SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
+SQLALCHEMY_DATABASE_URI = 'sqlite:///:memory:'
+engine = create_engine(SQLALCHEMY_DATABASE_URI, echo=True)
 Base.metadata.create_all(engine)
+
+Session = scoped_session(sessionmaker(bind=engine, autoflush=True))
