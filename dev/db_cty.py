@@ -28,7 +28,8 @@ Session = scoped_session(sessionmaker(bind=engine, autoflush=True))
 
 db=Session()
 nam=2019
-result = db.execute("SELECT * FROM dbo.hoso WHERE hosoid=:param", {'param':26})
+result = db.execute(
+    "SELECT * FROM dbo.hoso WHERE hosoid is not null", {'param': 26})
 if result:
     for row in result:
         for item in row:

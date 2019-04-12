@@ -69,12 +69,6 @@ class Application(tornado.web.Application):
 
 
 class BaseHandler(tornado.web.RequestHandler):
-    def initialize(self, session_factory):
-        self.db = session_factory
-
-    def on_finish(self, db):
-        self.db.remove()
-
     def prepare(self):
         self.form_data = {
             key: [val.decode('utf8') for val in val_list]
@@ -93,6 +87,7 @@ class BaseHandler(tornado.web.RequestHandler):
     def get_current_user(self):
         return self.get_secure_cookie("user")
 
+
 class HomeHandler(BaseHandler):
     def get(self):
         self.render("base.html")
@@ -108,9 +103,10 @@ class HosoHandler(BaseHandler):
 
 class HosoApiHandler(BaseHandler):
     @tornado.web.authenticated
-    def get(self):
-        mahoso = self.get_argument("mahoso", None)
+    def get(self, mahoso):
         if mahoso:
+            mahoso = mahoso.strip()
+
             result = {'msg': 'chwa lam'}
         self.send_response(result, status=201)
 
